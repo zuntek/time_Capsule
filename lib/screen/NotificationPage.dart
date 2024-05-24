@@ -20,6 +20,7 @@ class Notificationpage extends StatelessWidget {
     double height = screenSize.height;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
@@ -134,7 +135,7 @@ class Notificationpage extends StatelessWidget {
                                     child: SizedBox(
                                       width: width * 0.1,
                                       height: height * 0.02,
-                                      child: Center(
+                                      child: const Center(
                                         child: Text(
                                           '수락',
                                           style: TextStyle(
@@ -159,7 +160,7 @@ class Notificationpage extends StatelessWidget {
                                     child: SizedBox(
                                       width: width * 0.1,
                                       height: height * 0.02,
-                                      child: Center(
+                                      child: const Center(
                                         child: Text(
                                           '거절',
                                           style: TextStyle(

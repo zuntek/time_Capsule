@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PostController.dart';
 
-class Profile extends StatelessWidget {
-  Profile({super.key});
+class FixProfile extends StatelessWidget {
+  FixProfile({super.key});
   BottomButtonController bottomButtonController =
       Get.find<BottomButtonController>();
   PostController postController = Get.find<PostController>();
@@ -17,6 +17,7 @@ class Profile extends StatelessWidget {
     double width = screenSize.width;
     double height = screenSize.height;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
@@ -242,7 +243,7 @@ class Profile extends StatelessWidget {
         padding: EdgeInsets.all(width * 0.05),
         child: ElevatedButton(
           onPressed: () {
-            Get.to(Profile());
+            Get.to(FixProfile());
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black, // 버튼 배경색 설정

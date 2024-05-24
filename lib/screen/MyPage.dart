@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PostController.dart';
+import 'package:time_capsule/screen/AddPostPage.dart';
+import 'package:time_capsule/screen/Capsule.dart';
 import 'package:time_capsule/screen/FixProfile.dart';
 
 class MyPage extends StatelessWidget {
@@ -14,11 +17,17 @@ class MyPage extends StatelessWidget {
   PostController postController = Get.find<PostController>();
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ));
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
     var textWidth = width * 0.05;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
@@ -187,7 +196,7 @@ class MyPage extends StatelessWidget {
                           children: [
                             ElevatedButton(
                               onPressed: () {
-                                Get.to(Profile());
+                                Get.to(FixProfile());
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.black, // 버튼 배경색 설정
@@ -213,7 +222,7 @@ class MyPage extends StatelessWidget {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                // 버튼이 클릭되었을 때 수행할 작업
+                                Get.to(Capsule());
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.black, // 버튼 배경색 설정
@@ -229,7 +238,7 @@ class MyPage extends StatelessWidget {
                                 height: height * 0.04,
                                 child: const Center(
                                   child: Text(
-                                    '게시글 편집',
+                                    '게시글 작성',
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),

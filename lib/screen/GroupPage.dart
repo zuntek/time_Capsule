@@ -21,6 +21,7 @@ class GroupPage extends StatelessWidget {
     double height = screenSize.height;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(

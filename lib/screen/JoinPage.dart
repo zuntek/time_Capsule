@@ -17,6 +17,7 @@ class JoinPage extends StatelessWidget {
     double height = screenSize.height;
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(

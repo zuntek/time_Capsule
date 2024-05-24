@@ -15,6 +15,7 @@ class MakePartyPage extends StatelessWidget {
     double width = screenSize.width;
     double height = screenSize.height;
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: height * 0.065,
           leading: IconButton(

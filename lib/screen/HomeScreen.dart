@@ -38,6 +38,7 @@ class HomeScreen extends StatelessWidget {
     // 검색어를 저장할 변수
 
     return Scaffold(
+      backgroundColor: Colors.white,
       floatingActionButton: ExpandableFab(
         distance: 80.0,
       ),
@@ -489,7 +490,7 @@ class HomeScreen extends StatelessWidget {
                                           TextButton(
                                             onPressed: () {
                                               // 하트 아이콘을 누를 때마다 숫자를 1씩 증가시킵니다.
-                                              likeCount++;
+                                              Get.to(CommentPage());
                                             },
                                             style: TextButton.styleFrom(
                                               padding: const EdgeInsets.only(
@@ -539,7 +540,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              Get.to(const Login());
+                                              Get.to(const LoginPage());
                                             },
                                             style: TextButton.styleFrom(
                                               padding: const EdgeInsets.only(

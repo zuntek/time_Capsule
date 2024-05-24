@@ -11,7 +11,7 @@ import 'package:time_capsule/widget/customMarker.dart';
 class MapPage extends StatelessWidget {
   MapPage({super.key});
 
-  final LocationController locationController = Get.find<LocationController>();
+  final LocationController locationController = Get.put(LocationController());
 
   // void _onMapCreated(GoogleMapController controller) {
   //   locationController.mapController = controller;

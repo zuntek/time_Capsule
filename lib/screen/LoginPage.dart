@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:time_capsule/screen/JoinPage.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +16,11 @@ class Login extends StatelessWidget {
     double height = screenSize.height;
     return MaterialApp(
         home: Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: Padding(
