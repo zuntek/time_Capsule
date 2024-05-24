@@ -10,8 +10,10 @@ import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/screen/CommentPage.dart';
 import 'package:time_capsule/screen/JoinPage.dart';
+import 'package:time_capsule/screen/LoginPage.dart';
 import 'package:time_capsule/screen/MakePartyPage.dart';
 import 'package:time_capsule/screen/MapPage.dart';
+import 'package:time_capsule/screen/NotificationPage.dart';
 import 'package:time_capsule/widget/Expandable_fab.dart';
 import 'package:time_capsule/widget/SearchBar.dart';
 import 'package:time_capsule/widget/dropDownWidget.dart';
@@ -110,20 +112,14 @@ class HomeScreen extends StatelessWidget {
                   offset: Offset(width, height * 0.055),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  color: const Color.fromARGB(255, 190, 201, 250),
+                  color: Colors.white,
                   elevation: 50,
                   itemBuilder: (context) {
                     return [
                       dropDownWidget.buildPopupMenuItemWidget(
-                          "Search", Icons.search, Options.search.index),
+                          "설정", Icons.settings, Options.setting.index),
                       dropDownWidget.buildPopupMenuItemWidget(
-                          "Notification",
-                          Icons.notifications_none_outlined,
-                          Options.notification.index),
-                      dropDownWidget.buildPopupMenuItemWidget(
-                          "Setting", Icons.settings, Options.setting.index),
-                      dropDownWidget.buildPopupMenuItemWidget(
-                          "Logout", Icons.logout, Options.logout.index),
+                          "로그아웃", Icons.logout, Options.logout.index),
                     ];
                   },
                 ),
@@ -136,6 +132,15 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(),
               sliver: SliverToBoxAdapter(
                 child: Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        // 아래쪽 테두리
+                        color: Colors.grey, // 테두리 색상
+                        width: 1.0, // 테두리 두께
+                      ),
+                    ),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -277,9 +282,6 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: height * 0.02,
-                      )
                     ],
                   ),
                 ),
@@ -314,11 +316,9 @@ class HomeScreen extends StatelessWidget {
                               Padding(
                                   padding: EdgeInsets.only(top: height * 0.02)),
                               Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Colors.white,
-                                    border: Border.all(
-                                        width: 0.5, color: Colors.black),
-                                    boxShadow: const [
+                                    boxShadow: [
                                       BoxShadow(
                                         color: Colors.grey,
                                         spreadRadius: 0,
@@ -493,7 +493,7 @@ class HomeScreen extends StatelessWidget {
                                             },
                                             style: TextButton.styleFrom(
                                               padding: const EdgeInsets.only(
-                                                  left: 5),
+                                                  left: 3),
                                             ),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
@@ -514,11 +514,11 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              Get.to(CommentPage());
+                                              Get.to(Notificationpage());
                                             },
                                             style: TextButton.styleFrom(
                                               padding: const EdgeInsets.only(
-                                                  left: 5),
+                                                  left: 3),
                                             ),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
@@ -539,7 +539,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              Get.to(JoinPage());
+                                              Get.to(const Login());
                                             },
                                             style: TextButton.styleFrom(
                                               padding: const EdgeInsets.only(
