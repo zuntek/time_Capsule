@@ -58,11 +58,42 @@ class GroupPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          '용인팟',
-                          style: TextStyle(
-                            fontSize: width * 0.04,
-                            fontWeight: FontWeight.bold,
+                        PopupMenuButton<String>(
+                          color: Colors.white,
+                          onSelected: (String result) {
+                            // 선택한 항목에 대해 수행할 작업을 여기에 추가
+                            print('선택된 항목: $result');
+                          },
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry<String>>[
+                            const PopupMenuItem<String>(
+                              value: 'item1',
+                              child: Text('중태기와 칭구들'),
+                            ),
+                            const PopupMenuItem<String>(
+                              value: 'item2',
+                              child: Text('용인팟'),
+                            ),
+                            const PopupMenuItem<String>(
+                              value: 'item3',
+                              child: Text('용인대학교'),
+                            ),
+                          ],
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.list_sharp,
+                                size: width * 0.05,
+                              ),
+                              Text(
+                                '용인팟',
+                                style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.04,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         TextButton(

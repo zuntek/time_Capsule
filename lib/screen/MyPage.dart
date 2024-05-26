@@ -39,7 +39,7 @@ class MyPage extends StatelessWidget {
                 // SliverFillRemaining 나중에 이거 함 써봐도 좋을듯
                 automaticallyImplyLeading: false,
                 // expandedHeight: 200,
-                toolbarHeight: height * 0.055,
+                toolbarHeight: height * 0.08,
                 leadingWidth: width * 0.2,
                 floating: true,
                 // 스크롤 다시 올리면 appbar 보이게 하는거
@@ -62,17 +62,50 @@ class MyPage extends StatelessWidget {
                   children: [
                     SizedBox(width: width * 0.03),
                     Text(
-                      'MyPage',
+                      'zzuntekk',
                       style: TextStyle(
-                        fontSize: width * 0.041,
-                        fontStyle: FontStyle.italic,
+                        fontSize: width * 0.035,
                         fontWeight: FontWeight.bold,
                       ),
                     )
                   ],
                 ),
                 actions: [
-                  Icon(Icons.menu, size: width * 0.09),
+                  TextButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('로그아웃'),
+                            content: Text(
+                              '정말 로그아웃 하시겠습니까?',
+                              style: TextStyle(
+                                fontSize: width * 0.04,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {},
+                                child: const Text('로그아웃'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('닫기'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: const Icon(
+                      Icons.logout_outlined,
+                      color: Colors.black,
+                    ),
+                  ),
                   const Padding(padding: EdgeInsets.only(right: 10)),
                   SizedBox(
                     height: height * 0.02,
@@ -98,161 +131,156 @@ class MyPage extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.02),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.horizontal(
-                        left: Radius.circular(20),
-                        right: Radius.circular(20),
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: height * 0.04,
                       ),
-                      border: Border(
-                        bottom: BorderSide(
-                            width: 0.3,
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: height * 0.04,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Card(
-                                  shadowColor:
-                                      const Color.fromARGB(255, 147, 167, 242),
-                                  elevation: 5,
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: const CircleBorder(
-                                      side: BorderSide(
-                                          width: 1,
-                                          color: Color.fromARGB(
-                                              255, 147, 167, 242))),
-                                  child: SizedBox(
-                                    width: width * 0.35,
-                                    height: height * 0.19,
-                                    child: const Image(
-                                      image: AssetImage('images/profile.png'),
-                                    ),
-                                  ),
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      'zzuntekk',
-                                      style: TextStyle(
-                                        fontSize: width * 0.05,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    Text(
-                                      '홍준택',
-                                      style: TextStyle(
-                                        fontSize: width * 0.03,
-                                        fontWeight: FontWeight.w300,
-                                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                width: width * 0.2,
+                                height: height * 0.1,
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius:
+                                      BorderRadius.circular(20), // 둥근 네모 모양
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black
+                                          .withOpacity(0.5), // 그림자 색상
+                                      spreadRadius: 2, // 그림자 확산 정도
+                                      blurRadius: 5, // 그림자 흐림 정도
+                                      offset: const Offset(0, 3), // 그림자 위치 조정
                                     ),
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: height * 0.01,
-                                        ),
-                                        Text(
-                                          '3',
-                                          style: TextStyle(
-                                            fontSize: width * 0.03,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        Text(
-                                          '게시글 수',
-                                          style: TextStyle(
-                                            fontSize: width * 0.03,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.05,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                Get.to(FixProfile());
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black, // 버튼 배경색 설정
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.horizontal(
-                                    left: Radius.circular(10),
-                                    right: Radius.circular(10),
+                                child: const ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  child: Image(
+                                    image: AssetImage(
+                                        '/Users/zzuntekk/time_Capsule-main/images/travel.png'),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
-                              child: SizedBox(
-                                width: width * 0.3,
-                                height: height * 0.04,
-                                child: const Center(
-                                  child: Text(
-                                    '프로필 수정',
+                              SizedBox(
+                                width: width * 0.05,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'zzuntekk',
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      fontSize: width * 0.04,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Get.to(Capsule());
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black, // 버튼 배경색 설정
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.horizontal(
-                                    left: Radius.circular(10),
-                                    right: Radius.circular(10),
-                                  ),
-                                ),
-                              ),
-                              child: SizedBox(
-                                width: width * 0.3,
-                                height: height * 0.04,
-                                child: const Center(
-                                  child: Text(
-                                    '게시글 작성',
+                                  Text(
+                                    '홍준택',
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      fontSize: width * 0.04,
+                                      fontWeight: FontWeight.w300,
                                     ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '게시글 수: ',
+                                        style: TextStyle(
+                                          fontSize: width * 0.04,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                      ),
+                                      Text(
+                                        '3',
+                                        style: TextStyle(
+                                          fontSize: width * 0.04,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: width * 0.05,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.05,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.to(FixProfile());
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black, // 버튼 배경색 설정
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.horizontal(
+                                  left: Radius.circular(10),
+                                  right: Radius.circular(10),
+                                ),
+                              ),
+                            ),
+                            child: SizedBox(
+                              width: width * 0.3,
+                              height: height * 0.04,
+                              child: const Center(
+                                child: Text(
+                                  '프로필 수정',
+                                  style: TextStyle(
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: height * 0.04,
-                        ),
-                      ],
-                    ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.to(Capsule());
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black, // 버튼 배경색 설정
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.horizontal(
+                                  left: Radius.circular(10),
+                                  right: Radius.circular(10),
+                                ),
+                              ),
+                            ),
+                            child: SizedBox(
+                              width: width * 0.3,
+                              height: height * 0.04,
+                              child: const Center(
+                                child: Text(
+                                  '게시글 작성',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.04,
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -260,13 +288,6 @@ class MyPage extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          width: 0.3,
-                          color: const Color.fromARGB(255, 0, 0, 0),
-                        ),
-                      ),
                       child: Column(
                         children: [
                           Padding(
@@ -275,59 +296,41 @@ class MyPage extends StatelessWidget {
                                 vertical: height * 0.03),
                             child: GestureDetector(
                               onTap: () {
-                                print('이미지 클릭됨');
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Capsule();
+                                  },
+                                );
                                 // 이미지가 클릭되었을 때 수행할 작업을 여기에 추가
                               },
-                              child: SizedBox(
-                                width: width * 0.6,
-                                height: height * 0.1,
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    image: DecorationImage(
-                                      image:
-                                          AssetImage("images/background.png"),
-                                      fit: BoxFit.cover,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: width * 0.6,
+                                    height: height * 0.1,
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "images/background.png"),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  Text(
+                                    '위치 정보',
+                                    style: TextStyle(
+                                      fontSize: width * 0.025,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: height * 0.005,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: width * 0.02,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '서울시 강서구',
-                                  style: TextStyle(
-                                    fontSize: width * 0.025,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.heart,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Icon(
-                                      CupertinoIcons.chat_bubble,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ),
                     );
