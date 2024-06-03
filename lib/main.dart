@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:time_capsule/screen/AddPostPage.dart';
-import 'package:time_capsule/screen/Capsule.dart';
-import 'package:time_capsule/screen/Chat_Screen.dart';
-import 'package:time_capsule/screen/CommentPage.dart';
-import 'package:time_capsule/screen/JoinPage.dart';
-import 'package:time_capsule/screen/LoginPage.dart';
-import 'package:time_capsule/screen/MakePartyPage.dart';
-import 'package:time_capsule/screen/MyPage.dart';
+import 'package:time_capsule/controller/CapsuleController.dart';
+
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/screen/HomeScreen.dart';
+import 'package:time_capsule/screen/MyPage.dart';
 import 'package:time_capsule/widget/ShowDialog.dart';
+
+import 'controller/LocationController.dart';
+import 'controller/PostController.dart';
 
 void main() {
   runApp(const MyApp());
   Get.lazyPut(() => LocationController());
   Get.lazyPut(() => PostController());
   Get.lazyPut(() => BottomButtonController());
+  Get.lazyPut(() => CapsuleController());
 }
 
 class MyApp extends StatefulWidget {
@@ -72,7 +71,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'CapInNet',
+      theme: ThemeData(
+        useMaterial3: false,
+      ),
+      title: 'hi',
       home: MyPage(),
     );
   }

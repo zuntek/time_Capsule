@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -13,7 +15,14 @@ class GroupPage extends StatelessWidget {
   BottomButtonController bottomButtonController =
       Get.find<BottomButtonController>();
   PostController postController = Get.find<PostController>();
-
+  final PageController _pageController = PageController();
+  final Stream<int> _autoScrollStream = (() {
+    StreamController<int> controller = StreamController<int>();
+    Timer.periodic(const Duration(seconds: 5), (timer) {
+      controller.add(timer.tick);
+    });
+    return controller.stream;
+  })();
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -340,6 +349,171 @@ class GroupPage extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        SizedBox(
+                          height: height * 0.01,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: () {
+                                    int previousPage =
+                                        _pageController.page!.toInt() - 1;
+                                    if (previousPage >= 0) {
+                                      _pageController.animateToPage(
+                                        previousPage,
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        curve: Curves.easeIn,
+                                      );
+                                    }
+                                  },
+                                ),
+                                SizedBox(
+                                  height: height * 0.1,
+                                  width: width *
+                                      0.76, // PageView의 높이를 화면 높이의 30%로 설정
+                                  child: StreamBuilder<int>(
+                                    stream: _autoScrollStream,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData &&
+                                          _pageController.hasClients) {
+                                        int nextPage = snapshot.data! %
+                                            3; // assuming 3 images
+                                        _pageController.animateToPage(
+                                          nextPage,
+                                          duration:
+                                              const Duration(milliseconds: 300),
+                                          curve: Curves.easeIn,
+                                        );
+                                      }
+                                      return PageView(
+                                        controller: _pageController,
+                                        children: <Widget>[
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: width * 0.76,
+                                                height: height * 0.3,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20), // 원하는 둥글기 정도로 설정
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.5),
+                                                      spreadRadius: 2,
+                                                      blurRadius: 5,
+                                                      offset:
+                                                          const Offset(0, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20), // 같은 둥글기 정도로 설정
+                                                  child: Image.asset(
+                                                    '/Users/zzuntekk/time_Capsule-main/images/basketball.png',
+                                                    fit: BoxFit.cover,
+                                                    width: width * 0.76,
+                                                    height: height * 0.3,
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                bottom: 10,
+                                                right: 10,
+                                                child: Container(
+                                                  color: Colors.black54,
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: const Text(
+                                                    '베스킷볼 프렌즈',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: width * 0.76,
+                                                height: height * 0.3,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20), // 원하는 둥글기 정도로 설정
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.5),
+                                                      spreadRadius: 2,
+                                                      blurRadius: 5,
+                                                      offset:
+                                                          const Offset(0, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20), // 같은 둥글기 정도로 설정
+                                                  child: Image.asset(
+                                                    '/Users/zzuntekk/time_Capsule-main/images/foot.png',
+                                                    fit: BoxFit.cover,
+                                                    width: width * 0.76,
+                                                    height: height * 0.3,
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                bottom: 10,
+                                                right: 10,
+                                                child: Container(
+                                                  color: Colors.black54,
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: const Text(
+                                                    '풋살은 즐거워',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_forward),
+                                  onPressed: () {
+                                    int nextPage =
+                                        _pageController.page!.toInt() + 1;
+                                    if (nextPage < 3) {
+                                      // assuming 3 images
+                                      _pageController.animateToPage(
+                                        nextPage,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeIn,
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                         SizedBox(
                           height: height * 0.02,
                         ),
