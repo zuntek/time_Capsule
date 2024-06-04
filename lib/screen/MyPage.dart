@@ -26,8 +26,44 @@ class MyPage extends StatelessWidget {
     });
     return controller.stream;
   })();
+  final ValueNotifier<int> _currentPageNotifier = ValueNotifier<int>(0);
+  final int _pageCount = 3;
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _listKey = GlobalKey();
+  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+  final int _widgetCount = 3;
+
+  AutoScrollWidget() {
+    Timer.periodic(const Duration(seconds: 3), (timer) {
+      _currentIndexNotifier.value =
+          (_currentIndexNotifier.value + 1) % _widgetCount;
+    });
+  }
+
+  final List<Widget> _widgets = [
+    Container(
+      key: const ValueKey(1),
+      color: Colors.red,
+      child: const Center(
+          child: Text('Widget 1',
+              style: TextStyle(fontSize: 24, color: Colors.white))),
+    ),
+    Container(
+      key: const ValueKey(2),
+      color: Colors.blue,
+      child: const Center(
+          child: Text('Widget 2',
+              style: TextStyle(fontSize: 24, color: Colors.white))),
+    ),
+    Container(
+      key: const ValueKey(3),
+      color: Colors.green,
+      child: const Center(
+          child: Text('Widget 3',
+              style: TextStyle(fontSize: 24, color: Colors.white))),
+    ),
+    // Add more widgets as needed
+  ];
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -126,7 +162,7 @@ class MyPage extends StatelessWidget {
                   )
                 ],
               ),
-              SliverToBoxAdapter(
+              /* SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   child: Column(
@@ -134,35 +170,23 @@ class MyPage extends StatelessWidget {
                       SizedBox(
                         height: height * 0.02,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: width * 0.3,
-                            height: height * 0.15,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius:
-                                  BorderRadius.circular(20), // 둥근 네모 모양
-                            ),
-                            child: const ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              child: Image(
-                                image: AssetImage(
-                                    '/Users/zzuntekk/time_Capsule-main/images/travel.png'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            'zzuntekk',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      SizedBox(
+                        width: 300,
+                        height: 200, // Set the size of the container
+                        child: ValueListenableBuilder<int>(
+                          valueListenable: _currentPageNotifier,
+                          builder: (context, currentPage, child) {
+                            _pageController.animateToPage(
+                              currentPage,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                            );
+                            return PageView(
+                              controller: _pageController,
+                              children: _widgets,
+                            );
+                          },
+                        ),
                       ),
 
                       /*Row(
@@ -225,7 +249,7 @@ class MyPage extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              ),*/
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(),
@@ -293,6 +317,26 @@ class MyPage extends StatelessWidget {
                         ],
                       ),*/
                     ],
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  width: 300,
+                  height: 200, // Set the size of the container
+                  child: ValueListenableBuilder<int>(
+                    valueListenable: _currentIndexNotifier,
+                    builder: (context, currentIndex, child) {
+                      return AnimatedSwitcher(
+                        duration: const Duration(seconds: 1),
+                        child: _widgets[currentIndex % _widgets.length],
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return FadeTransition(
+                              opacity: animation, child: child);
+                        },
+                      );
+                    },
                   ),
                 ),
               ),

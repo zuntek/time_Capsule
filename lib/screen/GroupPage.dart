@@ -23,6 +23,40 @@ class GroupPage extends StatelessWidget {
     });
     return controller.stream;
   })();
+  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+  final int _widgetCount = 3;
+
+  AutoScrollWidget() {
+    Timer.periodic(const Duration(seconds: 3), (timer) {
+      _currentIndexNotifier.value =
+          (_currentIndexNotifier.value + 1) % _widgetCount;
+    });
+  }
+
+  final List<Widget> _widgets = [
+    Container(
+      key: const ValueKey(1),
+      color: Colors.red,
+      child: const Center(
+          child: Text('Widget 1',
+              style: TextStyle(fontSize: 24, color: Colors.white))),
+    ),
+    Container(
+      key: const ValueKey(2),
+      color: Colors.blue,
+      child: const Center(
+          child: Text('Widget 2',
+              style: TextStyle(fontSize: 24, color: Colors.white))),
+    ),
+    Container(
+      key: const ValueKey(3),
+      color: Colors.green,
+      child: const Center(
+          child: Text('Widget 3',
+              style: TextStyle(fontSize: 24, color: Colors.white))),
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -334,6 +368,28 @@ class GroupPage extends StatelessWidget {
                   ),
                 ],
               ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  width: 300,
+                  height: 200, // Set the size of the container
+                  child: ValueListenableBuilder<int>(
+                    valueListenable: _currentIndexNotifier,
+                    builder: (context, currentIndex, child) {
+                      return AnimatedSwitcher(
+                        duration: const Duration(seconds: 1),
+                        child: _widgets[currentIndex],
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          return FadeTransition(
+                              opacity: animation, child: child);
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+              // 다른 컨텐츠를 여기에 추가할 수 있습니다.
+
               SliverPadding(
                 padding: const EdgeInsets.symmetric(),
                 sliver: SliverToBoxAdapter(
