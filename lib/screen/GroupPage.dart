@@ -33,30 +33,6 @@ class GroupPage extends StatelessWidget {
     });
   }
 
-  final List<Widget> _widgets = [
-    Container(
-      key: const ValueKey(1),
-      color: Colors.red,
-      child: const Center(
-          child: Text('Widget 1',
-              style: TextStyle(fontSize: 24, color: Colors.white))),
-    ),
-    Container(
-      key: const ValueKey(2),
-      color: Colors.blue,
-      child: const Center(
-          child: Text('Widget 2',
-              style: TextStyle(fontSize: 24, color: Colors.white))),
-    ),
-    Container(
-      key: const ValueKey(3),
-      color: Colors.green,
-      child: const Center(
-          child: Text('Widget 3',
-              style: TextStyle(fontSize: 24, color: Colors.white))),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -368,29 +344,10 @@ class GroupPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  width: 300,
-                  height: 200, // Set the size of the container
-                  child: ValueListenableBuilder<int>(
-                    valueListenable: _currentIndexNotifier,
-                    builder: (context, currentIndex, child) {
-                      return AnimatedSwitcher(
-                        duration: const Duration(seconds: 1),
-                        child: _widgets[currentIndex],
-                        transitionBuilder:
-                            (Widget child, Animation<double> animation) {
-                          return FadeTransition(
-                              opacity: animation, child: child);
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
+
               // 다른 컨텐츠를 여기에 추가할 수 있습니다.
 
-              SliverPadding(
+              /*    SliverPadding(
                 padding: const EdgeInsets.symmetric(),
                 sliver: SliverToBoxAdapter(
                   child: Container(
@@ -573,100 +530,341 @@ class GroupPage extends StatelessWidget {
                         SizedBox(
                           height: height * 0.02,
                         ),
-                        SizedBox(
-                          width: width * 0.8,
-                          height: height * 0.35,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border:
-                                  Border.all(width: 0.0, color: Colors.white),
-                              image: const DecorationImage(
-                                image: AssetImage("images/background.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          '용인대 최고의 파티, 용인팟',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: width * 0.05),
-                        ),
-                        Text(
-                          '파티코드: 123456', //위치값 받기
-                          style: TextStyle(
-                            color: const Color.fromRGBO(0, 0, 0, 1)
-                                .withOpacity(0.5),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.location_on,
-                            ),
-                            Text(
-                              '주활동지: 경기도 용인시 처인구', //위치값 받기
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.5),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                              '어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구어쩌구저쩌구'),
-                        ),
-                        Text(
-                          '생성일자: 2024년 4월 28일',
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.5),
-                          ),
-                        ),
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
                       ],
                     ),
                   ),
                 ),
-              ),
+              ),*/
               SliverPadding(
                 padding: const EdgeInsets.symmetric(),
                 sliver: SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: height * 0.05,
+                      Stack(
+                        children: [
+                          // 배경 이미지 설정
+                          ClipRRect(
+                            child: Image.asset(
+                              '/Users/zzuntekk/time_Capsule-main/images/foot.png', // 이미지 경로 수정
+                              fit: BoxFit.cover,
+                              width: width,
+                              height: height * 0.8,
+                            ),
+                          ),
+                          Positioned(
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      color: Colors.black26),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: height * 0.01,
+                                      ),
+                                      Column(
+                                        children: <Widget>[
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(
+                                                    Icons.arrow_back,
+                                                    color: Colors.white),
+                                                onPressed: () {
+                                                  int previousPage =
+                                                      _pageController.page!
+                                                              .toInt() -
+                                                          1;
+                                                  if (previousPage >= 0) {
+                                                    _pageController
+                                                        .animateToPage(
+                                                      previousPage,
+                                                      duration: const Duration(
+                                                          milliseconds: 500),
+                                                      curve: Curves.easeIn,
+                                                    );
+                                                  }
+                                                },
+                                              ),
+                                              SizedBox(
+                                                height: height * 0.1,
+                                                width: width *
+                                                    0.76, // PageView의 높이를 화면 높이의 30%로 설정
+                                                child: StreamBuilder<int>(
+                                                  stream: _autoScrollStream,
+                                                  builder: (context, snapshot) {
+                                                    if (snapshot.hasData &&
+                                                        _pageController
+                                                            .hasClients) {
+                                                      int nextPage = snapshot
+                                                              .data! %
+                                                          3; // assuming 3 images
+                                                      _pageController
+                                                          .animateToPage(
+                                                        nextPage,
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        curve: Curves.easeIn,
+                                                      );
+                                                    }
+                                                    return PageView(
+                                                      controller:
+                                                          _pageController,
+                                                      children: <Widget>[
+                                                        Stack(
+                                                          children: [
+                                                            Container(
+                                                              width:
+                                                                  width * 0.76,
+                                                              height:
+                                                                  height * 0.3,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20), // 원하는 둥글기 정도로 설정
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .withOpacity(
+                                                                            0.5),
+                                                                    spreadRadius:
+                                                                        2,
+                                                                    blurRadius:
+                                                                        5,
+                                                                    offset:
+                                                                        const Offset(
+                                                                            0,
+                                                                            3),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20), // 같은 둥글기 정도로 설정
+                                                                child:
+                                                                    Image.asset(
+                                                                  '/Users/zzuntekk/time_Capsule-main/images/basketball.png',
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  width: width *
+                                                                      0.76,
+                                                                  height:
+                                                                      height *
+                                                                          0.3,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Positioned(
+                                                              bottom: 10,
+                                                              right: 10,
+                                                              child: Container(
+                                                                color: Colors
+                                                                    .black54,
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(8),
+                                                                child:
+                                                                    const Text(
+                                                                  '베스킷볼 프렌즈',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Stack(
+                                                          children: [
+                                                            Container(
+                                                              width:
+                                                                  width * 0.76,
+                                                              height:
+                                                                  height * 0.3,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20), // 원하는 둥글기 정도로 설정
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .withOpacity(
+                                                                            0.5),
+                                                                    spreadRadius:
+                                                                        2,
+                                                                    blurRadius:
+                                                                        5,
+                                                                    offset:
+                                                                        const Offset(
+                                                                            0,
+                                                                            3),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20), // 같은 둥글기 정도로 설정
+                                                                child:
+                                                                    Image.asset(
+                                                                  '/Users/zzuntekk/time_Capsule-main/images/foot.png',
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  width: width *
+                                                                      0.76,
+                                                                  height:
+                                                                      height *
+                                                                          0.3,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Positioned(
+                                                              bottom: 10,
+                                                              right: 10,
+                                                              child: Container(
+                                                                color: Colors
+                                                                    .black54,
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(8),
+                                                                child:
+                                                                    const Text(
+                                                                  '풋살은 즐거워',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              IconButton(
+                                                icon: const Icon(
+                                                  Icons.arrow_forward,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () {
+                                                  int nextPage = _pageController
+                                                          .page!
+                                                          .toInt() +
+                                                      1;
+                                                  if (nextPage < 3) {
+                                                    // assuming 3 images
+                                                    _pageController
+                                                        .animateToPage(
+                                                      nextPage,
+                                                      duration: const Duration(
+                                                          milliseconds: 300),
+                                                      curve: Curves.easeIn,
+                                                    );
+                                                  }
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.02,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  decoration:
+                                      const BoxDecoration(color: Colors.black),
+                                  child: const Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '베스킷볼 프렌즈',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        '#123456',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Text(
+                                        '농구 잘하는 사람들만 들어와라.',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // 겹치는 컨텐츠를 위한 Container
+                          Positioned.fill(
+                            top: height * 0.7,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  const Text(
+                                    '파티의 최신글',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        '용인팟의 최신글',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: width * 0.05),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Container(
-                        // 화면 전체 박스
-                        color: Colors.white,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                  padding: EdgeInsets.only(top: height * 0.02)),
-                              Container(
-                                decoration: BoxDecoration(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.02),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: height * 0.02),
+                                Container(
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
                                     border: Border.all(
                                         width: 0.5, color: Colors.black),
@@ -675,243 +873,199 @@ class GroupPage extends StatelessWidget {
                                         color: Colors.grey,
                                         spreadRadius: 0,
                                         blurRadius: 5.0,
-                                        offset: Offset(0,
-                                            10), // changes position of shadow
+                                        offset: Offset(0, 10),
                                       ),
-                                    ]),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: width * 0.02,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: height * 0.02,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: width * 0.01,
-                                          vertical: height * 0.01,
-                                        ),
-                                        child: SizedBox(
-                                          height: height * 0.3,
-                                          width: width * 0.9,
-                                          child: ListView(
-                                            scrollDirection: Axis.horizontal,
-                                            children: <Widget>[
-                                              Container(
-                                                width: width *
-                                                    0.5, // 이미지의 너비를 화면 너비의 절반으로 설정
-                                                height: height *
-                                                    0.15, // 이미지의 높이를 화면 높이의 40%로 설정
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "images/background.png"),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: width * 0.01,
-                                              ),
-                                              Container(
-                                                width: width *
-                                                    0.5, // 이미지의 너비를 화면 너비의 절반으로 설정
-                                                height: height *
-                                                    0.15, // 이미지의 높이를 화면 높이의 40%로 설정
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "images/background.png"),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: width * 0.01,
-                                              ),
-                                              Container(
-                                                width: width *
-                                                    0.5, // 이미지의 너비를 화면 너비의 절반으로 설정
-                                                height: height *
-                                                    0.15, // 이미지의 높이를 화면 높이의 40%로 설정
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "images/background.png"),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: width * 0.01,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {
-                                              // 버튼이 눌렸을 때 실행되는 코드 작성
-                                            },
-                                            child: Text(
-                                              'zzuntekk',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: width * 0.04),
-                                            ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              // 버튼이 눌렸을 때 실행되는 코드 작성
-                                            },
-                                            child: Text(
-                                              '용인팟',
-                                              style: TextStyle(
-                                                color: Colors.black
-                                                    .withOpacity(0.5),
-                                                fontSize: width * 0.03,
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.location_on,
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              // 버튼이 눌렸을 때 실행되는 코드 작성
-                                            },
-                                            child: Text(
-                                              '서울시 강서구에서.', //위치값 받기
-                                              style: TextStyle(
-                                                  color: Colors.black
-                                                      .withOpacity(0.5),
-                                                  fontSize: width * 0.03),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: width * 0.005),
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                          ),
-                                          child: const Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', //글 내용
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: height * 0.02,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {},
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  color: Colors.black,
-                                                  CupertinoIcons.heart,
-                                                  size: width * 0.065,
-                                                ),
-                                                const Text(
-                                                  '13',
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {},
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  color: Colors.black,
-                                                  CupertinoIcons.chat_bubble,
-                                                  size: width * 0.062,
-                                                ),
-                                                const Text(
-                                                  '13',
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {},
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  color: Colors.black,
-                                                  CupertinoIcons.share,
-                                                  size: width * 0.062,
-                                                ),
-                                                const Text(
-                                                  '13',
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: height * 0.02,
-                                      )
                                     ],
                                   ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.02,
+                                        vertical: height * 0.01),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: height * 0.3,
+                                          width: width * 0.9,
+                                          child: PageView(
+                                            children: <Widget>[
+                                              Container(
+                                                width: width * 0.9,
+                                                height: height * 0.35,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  child: Image.asset(
+                                                    '/Users/zzuntekk/time_Capsule-main/images/eye.png',
+                                                    fit: BoxFit.cover,
+                                                    width: width * 0.76,
+                                                    height: height * 0.3,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: width * 0.9,
+                                                height: height * 0.35,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  child: Image.asset(
+                                                    '/Users/zzuntekk/time_Capsule-main/images/foot.png',
+                                                    fit: BoxFit.cover,
+                                                    width: width * 0.9,
+                                                    height: height * 0.3,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: width * 0.9,
+                                                height: height * 0.35,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  child: Image.asset(
+                                                    '/Users/zzuntekk/time_Capsule-main/images/bridge.jpeg',
+                                                    fit: BoxFit.cover,
+                                                    width: width * 0.9,
+                                                    height: height * 0.3,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: height * 0.02),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                SizedBox(
+                                                  width: width * 0.02,
+                                                ),
+                                                const Text(
+                                                  'zzuntekk',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 25,
+                                                      color: Colors.black),
+                                                ),
+                                              ],
+                                            ),
+                                            const Column(
+                                              children: [
+                                                Text(
+                                                  '서울시 강서구',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 10,
+                                                      color: Colors.black54),
+                                                ),
+                                                Text(
+                                                  '2024.06.11',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 10,
+                                                      color: Colors.black54),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(20),
+                                                  bottomLeft:
+                                                      Radius.circular(20),
+                                                ),
+                                                color: Colors.black,
+                                              ),
+                                              child: Row(
+                                                children: [
+                                                  TextButton(
+                                                    onPressed: () {},
+                                                    style: TextButton.styleFrom(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 3),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Icon(
+                                                          color: Colors.white,
+                                                          CupertinoIcons
+                                                              .chat_bubble,
+                                                          size: width * 0.062,
+                                                        ),
+                                                        const Text(
+                                                          '13',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {},
+                                                    style: TextButton.styleFrom(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 5),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Icon(
+                                                          color: Colors.white,
+                                                          CupertinoIcons.share,
+                                                          size: width * 0.062,
+                                                        ),
+                                                        const Text(
+                                                          '13',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ]),
-                      );
-                    },
-                    childCount: 1, // SliverList에는 하나의 자식만 필요합니다.
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),

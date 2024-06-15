@@ -10,12 +10,6 @@ import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/Model/PostModel.dart';
 import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
-import 'package:time_capsule/screen/CommentPage.dart';
-import 'package:time_capsule/screen/JoinPage.dart';
-import 'package:time_capsule/screen/LoginPage.dart';
-import 'package:time_capsule/screen/MakePartyPage.dart';
-import 'package:time_capsule/screen/MapPage.dart';
-import 'package:time_capsule/screen/NotificationPage.dart';
 import 'package:time_capsule/widget/Expandable_fab.dart';
 import 'package:time_capsule/widget/SearchBar.dart';
 import 'package:time_capsule/widget/dropDownWidget.dart';
@@ -27,6 +21,22 @@ class HomeScreen extends StatelessWidget {
   BottomButtonController bottomButtonController =
       Get.find<BottomButtonController>();
   PhotoController photoController = Get.put(PhotoController());
+  final Stream<int> _autoScrollStream = (() {
+    StreamController<int> controller = StreamController<int>();
+    Timer.periodic(const Duration(seconds: 5), (timer) {
+      controller.add(timer.tick);
+    });
+    return controller.stream;
+  })();
+  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+  final int _widgetCount = 3;
+  final PageController _pageController = PageController();
+  AutoScrollWidget() {
+    Timer.periodic(const Duration(seconds: 3), (timer) {
+      _currentIndexNotifier.value =
+          (_currentIndexNotifier.value + 1) % _widgetCount;
+    });
+  }
 
   // initialBinding이 전체 전역에서 사용되는 controller 선언할 때 좋다고 하는데, 아직은 뭔 소린지 모르겠음.
 
@@ -131,7 +141,7 @@ class HomeScreen extends StatelessWidget {
                 // const Padding(padding: EdgeInsets.only(right: 10)),
               ],
             ),
-            SliverPadding(
+            /* SliverPadding(
               padding: const EdgeInsets.symmetric(),
               sliver: SliverToBoxAdapter(
                 child: Container(
@@ -289,7 +299,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+            ),*/
+
             Obx(() {
               if (postController.postList.isEmpty) {
                 return SliverToBoxAdapter(
@@ -307,173 +318,281 @@ class HomeScreen extends StatelessWidget {
                 );
               } else {
                 return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: postController.postList.length,
-                    (context, index) {
-                      return Container(
-                        // 화면 전체 박스
-                        color: Colors.white,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                  delegate: SliverChildListDelegate(
+                    [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 7.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 1.0,
+                            ),
+                          ),
+                          child: Column(
                             children: [
-                              Padding(
-                                  padding: EdgeInsets.only(top: height * 0.02)),
-                              Container(
-                                decoration: const BoxDecoration(
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        spreadRadius: 0,
-                                        blurRadius: 5.0,
-                                        offset: Offset(0,
-                                            10), // changes position of shadow
+                              SizedBox(
+                                height: height * 0.01,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(20),
+                                        bottomRight: Radius.circular(20),
                                       ),
-                                    ]),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: width * 0.02,
+                                      color: Colors.black,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.02,
+                                        ),
+                                        const Text(
+                                          '풋살은 즐거워',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 30,
+                                              color: Colors.white),
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.02,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.01,
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        height: height * 0.02,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: width * 0.01,
-                                          vertical: height * 0.01,
-                                        ),
-                                        child: SizedBox(
-                                          height: height * 0.3,
-                                          width: width * 0.9,
-                                          child: ListView(
-                                            scrollDirection: Axis.horizontal,
-                                            children: <Widget>[
-                                              Container(
-                                                width: width *
-                                                    0.6, // 이미지의 너비를 화면 너비의 절반으로 설정
-                                                height: height *
-                                                    0.15, // 이미지의 높이를 화면 높이의 40%로 설정
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "images/background.png"),
-                                                    fit: BoxFit.cover,
+                                        height: height * 0.35,
+                                        width: width * 0.9,
+                                        child: StreamBuilder<int>(
+                                          stream: _autoScrollStream,
+                                          builder: (context, snapshot) {
+                                            return PageView(
+                                              children: <Widget>[
+                                                Container(
+                                                  width: width * 0.9,
+                                                  height: height * 0.35,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    child: Image.asset(
+                                                      '/Users/zzuntekk/time_Capsule-main/images/eye.png',
+                                                      fit: BoxFit.cover,
+                                                      width: width * 0.76,
+                                                      height: height * 0.3,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: width * 0.01,
-                                              ),
-                                              Container(
-                                                width: width *
-                                                    0.5, // 이미지의 너비를 화면 너비의 절반으로 설정
-                                                height: height *
-                                                    0.15, // 이미지의 높이를 화면 높이의 40%로 설정
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "images/background.png"),
-                                                    fit: BoxFit.cover,
+                                                Container(
+                                                  width: width * 0.9,
+                                                  height: height * 0.35,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    child: Image.asset(
+                                                      '/Users/zzuntekk/time_Capsule-main/images/foot.png',
+                                                      fit: BoxFit.cover,
+                                                      width: width * 0.9,
+                                                      height: height * 0.3,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: width * 0.01,
-                                              ),
-                                              Container(
-                                                width: width *
-                                                    0.5, // 이미지의 너비를 화면 너비의 절반으로 설정
-                                                height: height *
-                                                    0.15, // 이미지의 높이를 화면 높이의 40%로 설정
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "images/background.png"),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: width * 0.01,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {
-                                              // 버튼이 눌렸을 때 실행되는 코드 작성
-                                            },
-                                            child: Text(
-                                              'zzuntekk',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
-                                                  fontSize: width * 0.05),
-                                            ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              // 버튼이 눌렸을 때 실행되는 코드 작성
-                                            },
-                                            child: Column(
-                                              children: [
-                                                SizedBox(
-                                                  height: height * 0.01,
-                                                ),
-                                                Text(
-                                                  '용인팟',
-                                                  style: TextStyle(
-                                                    color: Colors.black
-                                                        .withOpacity(0.5),
-                                                    fontSize: width * 0.035,
-                                                  ),
+                                                Stack(
+                                                  children: [
+                                                    Container(
+                                                      width: width * 0.9,
+                                                      height: height * 0.35,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                        child: Image.asset(
+                                                          '/Users/zzuntekk/time_Capsule-main/images/bridge.jpeg',
+                                                          fit: BoxFit.cover,
+                                                          width: width * 0.9,
+                                                          height: height * 0.3,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Stack(
+                                                                  children: <Widget>[
+                                                                    Text(
+                                                                      '한강다리 내다리',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            30,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        foreground:
+                                                                            Paint()
+                                                                              ..style = PaintingStyle.stroke
+                                                                              ..strokeWidth = 1
+                                                                              ..color = Colors.black,
+                                                                      ),
+                                                                    ),
+                                                                    const Text(
+                                                                      '한강다리 내다리',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            30,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                const Text(
+                                                                  '양화대교',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        20,
+                                                                  ),
+                                                                ),
+                                                                const Text(
+                                                                  '2024년 6월 5일의 추억',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        20,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height:
+                                                                height * 0.18,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
-                                            ),
-                                          )
-                                        ],
+                                            );
+                                          },
+                                        ),
                                       ),
-                                      Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.location_on,
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              // 버튼이 눌렸을 때 실행되는 코드 작성
-                                            },
-                                            child: Text(
-                                              '서울시 강서구에서.', //위치값 받기
-                                              style: TextStyle(
-                                                  color: Colors.black
-                                                      .withOpacity(0.5),
-                                                  fontSize: width * 0.03),
-                                            ),
-                                          ),
-                                        ],
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.01,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.02,
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: width * 0.005),
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
+                                      const Text(
+                                        'zzuntekk',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                  const Column(
+                                    children: [
+                                      Text(
+                                        '서울시 강서구',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 10,
+                                            color: Colors.black54),
+                                      ),
+                                      Text(
+                                        '2024.06.11',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 10,
+                                            color: Colors.black54),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        bottomLeft: Radius.circular(20),
+                                      ),
+                                      color: Colors.black,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {},
+                                          style: TextButton.styleFrom(
+                                            padding:
+                                                const EdgeInsets.only(left: 3),
                                           ),
-                                          child: const Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Text(
-                                                'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', //글 내용
+                                              Icon(
+                                                color: Colors.white,
+                                                CupertinoIcons.chat_bubble,
+                                                size: width * 0.062,
+                                              ),
+                                              const Text(
+                                                '13',
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                 ),
@@ -481,102 +600,48 @@ class HomeScreen extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: height * 0.02,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {
-                                              // 하트 아이콘을 누를 때마다 숫자를 1씩 증가시킵니다.
-                                              Get.to(CommentPage());
-                                            },
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.only(
-                                                  left: 3),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  color: Colors.black,
-                                                  CupertinoIcons.heart,
-                                                  size: width * 0.065,
-                                                ),
-                                                Text(
-                                                  '$likeCount',
-                                                  style: const TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                        TextButton(
+                                          onPressed: () {},
+                                          style: TextButton.styleFrom(
+                                            padding:
+                                                const EdgeInsets.only(left: 5),
                                           ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Get.to(Notificationpage());
-                                            },
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.only(
-                                                  left: 3),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                color: Colors.white,
+                                                CupertinoIcons.share,
+                                                size: width * 0.062,
+                                              ),
+                                              const Text(
+                                                '13',
+                                                style: TextStyle(
                                                   color: Colors.black,
-                                                  CupertinoIcons.chat_bubble,
-                                                  size: width * 0.062,
                                                 ),
-                                                const Text(
-                                                  '13',
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Get.to(const LoginPage());
-                                            },
-                                            style: TextButton.styleFrom(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  color: Colors.black,
-                                                  CupertinoIcons.share,
-                                                  size: width * 0.062,
-                                                ),
-                                                const Text(
-                                                  '13',
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: height * 0.02,
-                                      )
-                                    ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ]),
-                      );
-                    },
+                              SizedBox(
+                                height: height * 0.01,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '오늘 풋살 ㅈㄴ 힘들었다 그래도 이겼으니까 한잔해 시발 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }

@@ -26,6 +26,7 @@ class MyPage extends StatelessWidget {
     });
     return controller.stream;
   })();
+
   final ValueNotifier<int> _currentPageNotifier = ValueNotifier<int>(0);
   final int _pageCount = 3;
   final ScrollController _scrollController = ScrollController();
@@ -33,37 +34,6 @@ class MyPage extends StatelessWidget {
   final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
   final int _widgetCount = 3;
 
-  AutoScrollWidget() {
-    Timer.periodic(const Duration(seconds: 3), (timer) {
-      _currentIndexNotifier.value =
-          (_currentIndexNotifier.value + 1) % _widgetCount;
-    });
-  }
-
-  final List<Widget> _widgets = [
-    Container(
-      key: const ValueKey(1),
-      color: Colors.red,
-      child: const Center(
-          child: Text('Widget 1',
-              style: TextStyle(fontSize: 24, color: Colors.white))),
-    ),
-    Container(
-      key: const ValueKey(2),
-      color: Colors.blue,
-      child: const Center(
-          child: Text('Widget 2',
-              style: TextStyle(fontSize: 24, color: Colors.white))),
-    ),
-    Container(
-      key: const ValueKey(3),
-      color: Colors.green,
-      child: const Center(
-          child: Text('Widget 3',
-              style: TextStyle(fontSize: 24, color: Colors.white))),
-    ),
-    // Add more widgets as needed
-  ];
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -75,6 +45,7 @@ class MyPage extends StatelessWidget {
     double width = screenSize.width;
     double height = screenSize.height;
     var textWidth = width * 0.05;
+    bool isListExpanded = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -162,34 +133,70 @@ class MyPage extends StatelessWidget {
                   )
                 ],
               ),
-              /* SliverToBoxAdapter(
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Card(
+                                  shadowColor: Colors.white,
+                                  elevation: 5,
+                                  clipBehavior: Clip.antiAlias,
+                                  shape: const CircleBorder(
+                                      side: BorderSide(
+                                          width: 1, color: Colors.black)),
+                                  child: SizedBox(
+                                    width: width * 0.35,
+                                    height: height * 0.19,
+                                    child: const Image(
+                                      image: AssetImage('images/profile.png'),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  '홍준택',
+                                  style: TextStyle(
+                                    fontSize: width * 0.05,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'zzuntekk',
+                                  style: TextStyle(
+                                    fontSize: width * 0.05,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                  ],
+                ),
+              ),
+              SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      SizedBox(
-                        width: 300,
-                        height: 200, // Set the size of the container
-                        child: ValueListenableBuilder<int>(
-                          valueListenable: _currentPageNotifier,
-                          builder: (context, currentPage, child) {
-                            _pageController.animateToPage(
-                              currentPage,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeIn,
-                            );
-                            return PageView(
-                              controller: _pageController,
-                              children: _widgets,
-                            );
-                          },
-                        ),
-                      ),
-
-                      /*Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ElevatedButton(
@@ -206,7 +213,7 @@ class MyPage extends StatelessWidget {
                               ),
                             ),
                             child: SizedBox(
-                              width: width * 0.3,
+                              width: width * 0.8,
                               height: height * 0.04,
                               child: const Center(
                                 child: Text(
@@ -218,38 +225,15 @@ class MyPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Get.to(Capsule());
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black, // 버튼 배경색 설정
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.horizontal(
-                                  left: Radius.circular(10),
-                                  right: Radius.circular(10),
-                                ),
-                              ),
-                            ),
-                            child: SizedBox(
-                              width: width * 0.3,
-                              height: height * 0.04,
-                              child: const Center(
-                                child: Text(
-                                  '게시글 작성',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
                         ],
-                      ),*/
+                      ),
+                      SizedBox(
+                        height: height * 0.05,
+                      )
                     ],
                   ),
                 ),
-              ),*/
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(),
@@ -263,7 +247,14 @@ class MyPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      /*Column(
+                      Text(
+                        '옆으로 스와이프하여 보기',
+                        style: TextStyle(
+                            fontSize: width * 0.04,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black38),
+                      ),
+                      /* Column(
                         children: <Widget>[
                           Container(
                             height: height * 0.3, // 높이를 화면 높이의 30%로 설정
@@ -303,7 +294,7 @@ class MyPage extends StatelessWidget {
                                   ),
                                   ListView.builder(
                                     shrinkWrap: true,
-                                    itemCount: 4,
+                                    itemCount: 29,
                                     itemBuilder: (context, index) {
                                       return ListTile(
                                         title: Text('Friend ${index + 1}'),
@@ -320,29 +311,9 @@ class MyPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
+              /*  SliverToBoxAdapter(
                 child: SizedBox(
-                  width: 300,
-                  height: 200, // Set the size of the container
-                  child: ValueListenableBuilder<int>(
-                    valueListenable: _currentIndexNotifier,
-                    builder: (context, currentIndex, child) {
-                      return AnimatedSwitcher(
-                        duration: const Duration(seconds: 1),
-                        child: _widgets[currentIndex % _widgets.length],
-                        transitionBuilder:
-                            (Widget child, Animation<double> animation) {
-                          return FadeTransition(
-                              opacity: animation, child: child);
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: height * 0.8, // Adjust this height as needed
+                  height: height * 0.8,
                   child: Stack(
                     children: [
                       Container(
@@ -354,7 +325,7 @@ class MyPage extends StatelessWidget {
                               _isListVisible.value = !_isListVisible.value;
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black, // 버튼 배경색 설정
+                              backgroundColor: Colors.black,
                             ),
                             child: ValueListenableBuilder(
                               valueListenable: _isListVisible,
@@ -367,39 +338,31 @@ class MyPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      ValueListenableBuilder(
-                        valueListenable: _isListVisible,
-                        builder: (context, value, child) {
-                          return AnimatedPositioned(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                            bottom: value ? 0 : -height * 0.5,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              height: height * 0.6,
-                              color: Colors.white,
-                              child: ListView.builder(
-                                itemCount: 5,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Container(
-                                      decoration: const BoxDecoration(
-                                        color: Colors.green,
-                                      ),
-                                      child: Text('Friend ${index + 1}'),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          );
-                        },
+                      Visibility(
+                        visible: _isListVisible.value,
+                        child: Container(
+                          height: height * 0.6,
+                          color: Colors.white,
+                          child: ListView.builder(
+                            itemCount: 5,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Container(
+                                  decoration: const BoxDecoration(
+                                    color: Colors.green,
+                                  ),
+                                  child: Text('Friend ${index + 1}'),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
+              ),*/
+
               SliverPadding(
                 padding: const EdgeInsets.symmetric(),
                 sliver: SliverToBoxAdapter(
@@ -468,7 +431,7 @@ class MyPage extends StatelessWidget {
                                                 Positioned(
                                                   child: Container(
                                                     padding:
-                                                        const EdgeInsets.all(8),
+                                                        const EdgeInsets.all(1),
                                                     child: const Column(
                                                       children: [
                                                         Text(
@@ -510,16 +473,6 @@ class MyPage extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             20), // 원하는 둥글기 정도로 설정
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.grey
-                                                            .withOpacity(0.5),
-                                                        spreadRadius: 2,
-                                                        blurRadius: 5,
-                                                        offset:
-                                                            const Offset(0, 3),
-                                                      ),
-                                                    ],
                                                   ),
                                                   child: ClipRRect(
                                                     borderRadius:
@@ -534,37 +487,352 @@ class MyPage extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Positioned(
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(8),
-                                                    child: const Column(
-                                                      children: [
-                                                        Text(
-                                                          '풋살 즐거워',
-                                                          style: TextStyle(
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
+                                                        child: const Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              '풋살은 즐거워',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 30,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            Text(
+                                                              '서울시 강서구',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              '2024년 6월 1일의 추억',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: height * 0.18,
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Container(
+                                                            decoration:
+                                                                const BoxDecoration(
                                                               color:
                                                                   Colors.white,
-                                                              fontSize: 30,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          '서울시 강서구',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20,
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  spreadRadius:
+                                                                      2,
+                                                                  blurRadius: 5,
+                                                                  offset:
+                                                                      Offset(
+                                                                          0, 3),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            child: Row(
+                                                              children: [
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () {},
+                                                                  style: TextButton
+                                                                      .styleFrom(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            3),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Icon(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        CupertinoIcons
+                                                                            .chat_bubble,
+                                                                        size: width *
+                                                                            0.062,
+                                                                      ),
+                                                                      const Text(
+                                                                        '13',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () {},
+                                                                  style: TextButton
+                                                                      .styleFrom(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            5),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Icon(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        CupertinoIcons
+                                                                            .share,
+                                                                        size: width *
+                                                                            0.062,
+                                                                      ),
+                                                                      const Text(
+                                                                        '13',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          '2024년 6월 1일의 추억',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20,
-                                                          ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: width * 0.9,
+                                                  height: height * 0.35,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20), // 원하는 둥글기 정도로 설정
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20), // 같은 둥글기 정도로 설정
+                                                    child: Image.asset(
+                                                      '/Users/zzuntekk/time_Capsule-main/images/bridge.jpeg',
+                                                      fit: BoxFit.cover,
+                                                      width: width * 0.9,
+                                                      height: height * 0.3,
                                                     ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Stack(
+                                                              children: <Widget>[
+                                                                // Outline text
+                                                                Text(
+                                                                  '한강다리 내다리',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        30,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    foreground:
+                                                                        Paint()
+                                                                          ..style =
+                                                                              PaintingStyle.stroke
+                                                                          ..strokeWidth =
+                                                                              1
+                                                                          ..color =
+                                                                              Colors.black,
+                                                                  ),
+                                                                ),
+                                                                // Solid text
+                                                                const Text(
+                                                                  '한강다리 내다리',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        30,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            const Text(
+                                                              '양화대교',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                            const Text(
+                                                              '2024년 6월 5일의 추억',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: height * 0.18,
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Container(
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        20),
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        20),
+                                                              ), // 원하는 둥글기 정도로 설정
+
+                                                              color:
+                                                                  Colors.white,
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  spreadRadius:
+                                                                      2,
+                                                                  blurRadius: 5,
+                                                                  offset:
+                                                                      Offset(
+                                                                          3, 0),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            child: Row(
+                                                              children: [
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () {},
+                                                                  style: TextButton
+                                                                      .styleFrom(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            3),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Icon(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        CupertinoIcons
+                                                                            .chat_bubble,
+                                                                        size: width *
+                                                                            0.062,
+                                                                      ),
+                                                                      const Text(
+                                                                        '13',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () {},
+                                                                  style: TextButton
+                                                                      .styleFrom(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            5),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Icon(
+                                                                        color: Colors
+                                                                            .black,
+                                                                        CupertinoIcons
+                                                                            .share,
+                                                                        size: width *
+                                                                            0.062,
+                                                                      ),
+                                                                      const Text(
+                                                                        '13',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
@@ -575,56 +843,33 @@ class MyPage extends StatelessWidget {
                                     ),
                                   ),
                                 ]),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                TextButton(
-                                  onPressed: () {},
-                                  style: TextButton.styleFrom(
-                                    padding: const EdgeInsets.only(left: 3),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        color: Colors.black,
-                                        CupertinoIcons.chat_bubble,
-                                        size: width * 0.062,
-                                      ),
-                                      const Text(
-                                        '13',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {},
-                                  style: TextButton.styleFrom(
-                                    padding: const EdgeInsets.only(left: 5),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        color: Colors.black,
-                                        CupertinoIcons.share,
-                                        size: width * 0.062,
-                                      ),
-                                      const Text(
-                                        '13',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.to(Capsule());
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black, // 버튼 배경색 설정
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.horizontal(
+                                left: Radius.circular(10),
+                                right: Radius.circular(10),
+                              ),
+                            ),
+                          ),
+                          child: SizedBox(
+                            width: width * 0.8,
+                            height: height * 0.04,
+                            child: const Center(
+                              child: Text(
+                                '게시글 작성',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
