@@ -11,6 +11,7 @@ import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/screen/AddPostPage.dart';
 import 'package:time_capsule/screen/Capsule.dart';
 import 'package:time_capsule/screen/FixProfile.dart';
+import 'package:time_capsule/widget/dropDownWidget.dart';
 
 class MyPage extends StatelessWidget {
   MyPage({super.key});
@@ -85,8 +86,9 @@ class MyPage extends StatelessWidget {
                     Text(
                       'zzuntekk',
                       style: TextStyle(
-                        fontSize: width * 0.035,
+                        fontSize: width * 0.05,
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     )
                   ],
@@ -147,38 +149,132 @@ class MyPage extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Card(
-                                  shadowColor: Colors.white,
-                                  elevation: 5,
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: const CircleBorder(
-                                      side: BorderSide(
-                                          width: 1, color: Colors.black)),
-                                  child: SizedBox(
-                                    width: width * 0.35,
-                                    height: height * 0.19,
-                                    child: const Image(
-                                      image: AssetImage('images/profile.png'),
+                                Container(
+                                  width: width * 0.4,
+                                  height: height * 0.215,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        height: height * 0.01,
+                                      ),
+                                      Card(
+                                        elevation: 5,
+                                        clipBehavior: Clip.antiAlias,
+                                        shape: ContinuousRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                50), // 원하는 둥글기
+                                            side: const BorderSide(
+                                                width: 1, color: Colors.black)),
+                                        child: SizedBox(
+                                          width: width * 0.3,
+                                          height: width * 0.3,
+                                          child: const Image(
+                                            image: AssetImage(
+                                                'images/profile.png'),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.01,
+                                      ),
+                                      Text(
+                                        '홍준택',
+                                        style: TextStyle(
+                                          fontSize: width * 0.05,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        'zzuntekk',
+                                        style: TextStyle(
+                                          fontSize: width * 0.05,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: width * 0.05,
+                                ),
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: width * 0.4,
+                                      height: height * 0.1,
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              '3',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: width * 0.08,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              '캡슐 수',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: width * 0.05,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  '홍준택',
-                                  style: TextStyle(
-                                    fontSize: width * 0.05,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'zzuntekk',
-                                  style: TextStyle(
-                                    fontSize: width * 0.05,
-                                  ),
-                                ),
+                                    SizedBox(
+                                      height: height * 0.015,
+                                    ),
+                                    Container(
+                                      width: width * 0.4,
+                                      height: height * 0.1,
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              '2024.06.24',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: width * 0.06,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              '가입일자',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: width * 0.05,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ],
