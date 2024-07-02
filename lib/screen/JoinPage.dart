@@ -48,14 +48,61 @@ class JoinPage extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: height * 0.05),
+                  Column(
+                    children: [
+                      SizedBox(height: height * 0.05),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: height * 0.08, // 텍스트 입력 필드의 높이 조정
+
+                              child: const TextField(
+                                decoration: InputDecoration(
+                                  hintText: "닉네임",
+                                  border: OutlineInputBorder(),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 10.0),
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                ),
+                                maxLength: 20,
+                                maxLines: 1, // 단일 라인 입력으로 변경
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: width * 0.02),
+                          TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.03),
+                            ),
+                            child: const Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '중복확인',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: height * 0.03),
                   TextFormField(
                     decoration: const InputDecoration(
                       labelText: '이메일',
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.03),
                   TextFormField(
                     obscureText: true,
                     decoration: const InputDecoration(
@@ -74,13 +121,13 @@ class JoinPage extends StatelessWidget {
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.02),
                   _buildDateOfBirthField(context), // BuildContext 전달
-                  SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.02),
                   _buildPhoneNumberField(),
-                  SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.02),
                   SizedBox(
-                    width: width * 0.3,
+                    width: width * 0.8,
                     height: height * 0.06,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(

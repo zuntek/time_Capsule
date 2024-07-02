@@ -45,7 +45,7 @@ class LoginPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.black.withOpacity(0.5)),
                   ),
-                  /* SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.05),
                   TextFormField(
                     decoration: const InputDecoration(
                       labelText: '아이디',
@@ -63,53 +63,63 @@ class LoginPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          // 버튼이 클릭되었을 때 수행할 작업
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black, // 버튼 배경색 설정
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.horizontal(
-                              left: Radius.circular(10),
-                              right: Radius.circular(10),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black, // 버튼 배경색 설정
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.horizontal(
+                                left: Radius.circular(20),
+                                right: Radius.circular(20),
+                              ),
                             ),
                           ),
-                        ),
-                        child: SizedBox(
-                          width: width * 0.3,
-                          height: height * 0.06,
-                          child: const Center(
-                            child: Text(
-                              '로그인',
-                              style: TextStyle(
-                                color: Colors.white,
+                          child: SizedBox(
+                            width: width * 0.3,
+                            height: height * 0.04,
+                            child: const Center(
+                              child: Text(
+                                '로그인',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.to(JoinPage());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black, // 버튼 배경색 설정
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.horizontal(
-                              left: Radius.circular(10),
-                              right: Radius.circular(10),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.to(JoinPage());
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black, // 버튼 배경색 설정
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.horizontal(
+                                left: Radius.circular(20),
+                                right: Radius.circular(20),
+                              ),
                             ),
                           ),
-                        ),
-                        child: SizedBox(
-                          width: width * 0.3,
-                          height: height * 0.06,
-                          child: const Center(
-                            child: Text(
-                              '회원가입',
-                              style: TextStyle(
-                                color: Colors.white,
+                          child: SizedBox(
+                            width: width * 0.3,
+                            height: height * 0.04,
+                            child: const Center(
+                              child: Text(
+                                '회원가입',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -126,14 +136,14 @@ class LoginPage extends StatelessWidget {
                       backgroundColor: Colors.black, // 버튼 배경색 설정
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.horizontal(
-                          left: Radius.circular(10),
-                          right: Radius.circular(10),
+                          left: Radius.circular(20),
+                          right: Radius.circular(20),
                         ),
                       ),
                     ),
                     child: SizedBox(
-                      width: width * 0.5,
-                      height: height * 0.06,
+                      width: width * 0.9,
+                      height: height * 0.04,
                       child: const Center(
                         child: Text(
                           '구글 계정으로 로그인하기',
@@ -143,7 +153,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),*/
+                  ),
                 ],
               ),
             ),

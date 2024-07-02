@@ -11,6 +11,8 @@ import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/screen/AddPostPage.dart';
 import 'package:time_capsule/screen/Capsule.dart';
 import 'package:time_capsule/screen/FixProfile.dart';
+import 'package:time_capsule/screen/JoinPage.dart';
+import 'package:time_capsule/screen/LoginPage.dart';
 import 'package:time_capsule/widget/dropDownWidget.dart';
 
 class MyPage extends StatelessWidget {
@@ -62,7 +64,7 @@ class MyPage extends StatelessWidget {
                 automaticallyImplyLeading: false,
                 // expandedHeight: 200,
                 toolbarHeight: height * 0.08,
-                leadingWidth: width * 0.2,
+                leadingWidth: width * 0.8,
                 floating: true,
                 // 스크롤 다시 올리면 appbar 보이게 하는거
                 snap: true,
@@ -192,12 +194,9 @@ class MyPage extends StatelessWidget {
                                           color: Colors.white,
                                         ),
                                       ),
-                                      Text(
-                                        'zzuntekk',
-                                        style: TextStyle(
-                                          fontSize: width * 0.05,
-                                        ),
-                                      ),
+                                      SizedBox(
+                                        height: height * 0.02,
+                                      )
                                     ],
                                   ),
                                 ),
@@ -324,7 +323,7 @@ class MyPage extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: height * 0.05,
+                        height: height * 0.01,
                       )
                     ],
                   ),
@@ -492,241 +491,6 @@ class MyPage extends StatelessWidget {
                                         return PageView(
                                           controller: _pageController,
                                           children: <Widget>[
-                                            Stack(
-                                              children: [
-                                                Container(
-                                                  width: width * 0.9,
-                                                  height: height * 0.35,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20), // 원하는 둥글기 정도로 설정
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.grey
-                                                            .withOpacity(0.5),
-                                                        spreadRadius: 2,
-                                                        blurRadius: 5,
-                                                        offset:
-                                                            const Offset(0, 3),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20), // 같은 둥글기 정도로 설정
-                                                    child: Image.asset(
-                                                      '/Users/zzuntekk/time_Capsule-main/images/eye.png',
-                                                      fit: BoxFit.cover,
-                                                      width: width * 0.76,
-                                                      height: height * 0.3,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(1),
-                                                    child: const Column(
-                                                      children: [
-                                                        Text(
-                                                          '눈썹문신 조진날',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 30,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          '마곡나루 부근',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 20,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          '2024년 5월 21일의 추억',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 20,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Stack(
-                                              children: [
-                                                Container(
-                                                  width: width * 0.9,
-                                                  height: height * 0.35,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20), // 원하는 둥글기 정도로 설정
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20), // 같은 둥글기 정도로 설정
-                                                    child: Image.asset(
-                                                      '/Users/zzuntekk/time_Capsule-main/images/foot.png',
-                                                      fit: BoxFit.cover,
-                                                      width: width * 0.9,
-                                                      height: height * 0.3,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8),
-                                                        child: const Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              '풋살은 즐거워',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 30,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                            Text(
-                                                              '서울시 강서구',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 20,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '2024년 6월 1일의 추억',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 20,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: height * 0.18,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Container(
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                  spreadRadius:
-                                                                      2,
-                                                                  blurRadius: 5,
-                                                                  offset:
-                                                                      Offset(
-                                                                          0, 3),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            child: Row(
-                                                              children: [
-                                                                TextButton(
-                                                                  onPressed:
-                                                                      () {},
-                                                                  style: TextButton
-                                                                      .styleFrom(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        left:
-                                                                            3),
-                                                                  ),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
-                                                                    children: [
-                                                                      Icon(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        CupertinoIcons
-                                                                            .chat_bubble,
-                                                                        size: width *
-                                                                            0.062,
-                                                                      ),
-                                                                      const Text(
-                                                                        '13',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                TextButton(
-                                                                  onPressed:
-                                                                      () {},
-                                                                  style: TextButton
-                                                                      .styleFrom(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        left:
-                                                                            5),
-                                                                  ),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
-                                                                    children: [
-                                                                      Icon(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        CupertinoIcons
-                                                                            .share,
-                                                                        size: width *
-                                                                            0.062,
-                                                                      ),
-                                                                      const Text(
-                                                                        '13',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
                                             Stack(
                                               children: [
                                                 Container(
@@ -943,7 +707,7 @@ class MyPage extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Get.to(Capsule());
+                            Get.to(const LoginPage());
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black, // 버튼 배경색 설정
@@ -1052,7 +816,7 @@ class MyPage extends StatelessWidget {
               unselectedItemColor: Colors.grey,
               showSelectedLabels: true,
               showUnselectedLabels: true,
-              selectedItemColor: Colors.blueAccent,
+              selectedItemColor: Colors.black,
               currentIndex: bottomButtonController.selectedIndex.value,
               selectedLabelStyle: TextStyle(
                 color: Colors.blueAccent,

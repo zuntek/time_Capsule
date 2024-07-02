@@ -26,7 +26,7 @@ class FixProfile extends StatelessWidget {
               automaticallyImplyLeading: false,
               // expandedHeight: 200,
               toolbarHeight: height * 0.055,
-              leadingWidth: width * 0.2,
+              leadingWidth: width * 0.7,
               floating: true,
               // 스크롤 다시 올리면 appbar 보이게 하는거
               snap: true,
@@ -47,30 +47,25 @@ class FixProfile extends StatelessWidget {
               leading: Row(
                 children: [
                   SizedBox(width: width * 0.03),
+                  IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        CupertinoIcons.back,
+                        size: width * 0.075,
+                        color: Colors.black,
+                      )),
                   Text(
-                    'MyPage',
+                    '프로필 수정',
                     style: TextStyle(
                       fontSize: width * 0.041,
-                      fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   )
                 ],
               ),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Icon(
-                      CupertinoIcons.back,
-                      size: width * 0.075,
-                      color: Colors.black,
-                    )),
-                SizedBox(
-                  height: height * 0.02,
-                )
-              ],
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -114,6 +109,9 @@ class FixProfile extends StatelessWidget {
                                         image: AssetImage('images/profile.png'),
                                       ),
                                     ),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.05,
                                   ),
                                   GestureDetector(
                                     onTap: () {

@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/screen/NotificationPage.dart';
+import 'package:time_capsule/screen/PartyMemberList.dart';
 
 class GroupPage extends StatelessWidget {
   GroupPage({super.key});
@@ -103,6 +104,7 @@ class GroupPage extends StatelessWidget {
                               Icon(
                                 Icons.list_sharp,
                                 size: width * 0.05,
+                                color: Colors.black,
                               ),
                               Text(
                                 '용인팟',
@@ -110,6 +112,7 @@ class GroupPage extends StatelessWidget {
                                   fontSize:
                                       MediaQuery.of(context).size.width * 0.04,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
                             ],
@@ -819,6 +822,93 @@ class GroupPage extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+                                SizedBox(
+                                  height: height * 0.02,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return PartyMemberList();
+                                            },
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              Colors.black, // 버튼 배경색 설정
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.horizontal(
+                                              left: Radius.circular(10),
+                                              right: Radius.circular(10),
+                                            ),
+                                          ),
+                                        ),
+                                        child: SizedBox(
+                                          width: width * 0.3,
+                                          height: height * 0.04,
+                                          child: const Center(
+                                            child: Text(
+                                              '파티 신청 현황',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return PartyMemberList();
+                                            },
+                                          );
+                                          // 이미지가 클릭되었을 때 수행할 작업을 여기에 추가
+                                        },
+                                        child: Container(
+                                          decoration: const BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.horizontal(
+                                              left: Radius.circular(10),
+                                              right: Radius.circular(10),
+                                            ),
+                                          ),
+                                          child: SizedBox(
+                                            width: width * 0.3,
+                                            height: height * 0.04,
+                                            child: const Center(
+                                              child: Text(
+                                                '파티멤버 보기',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -862,7 +952,6 @@ class GroupPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: height * 0.02),
                                 Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -1087,10 +1176,10 @@ class GroupPage extends StatelessWidget {
               unselectedItemColor: Colors.grey,
               showSelectedLabels: true,
               showUnselectedLabels: true,
-              selectedItemColor: Colors.blueAccent,
+              selectedItemColor: Colors.black,
               currentIndex: bottomButtonController.selectedIndex.value,
               selectedLabelStyle: TextStyle(
-                color: Colors.blueAccent,
+                color: Colors.black,
                 fontSize: width * 0.035,
                 fontWeight: FontWeight.bold,
               ),

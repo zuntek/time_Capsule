@@ -124,6 +124,7 @@ class HomeScreen extends StatelessWidget {
                   icon: Icon(
                     Icons.menu,
                     size: width * 0.09,
+                    color: Colors.black,
                   ),
                   offset: Offset(width, height * 0.055),
                   shape: RoundedRectangleBorder(
@@ -197,6 +198,9 @@ class HomeScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+                                SizedBox(
+                                  width: width * 0.02,
+                                ),
                                 TextButton(
                                   onPressed: () {},
                                   style: TextButton.styleFrom(
@@ -206,16 +210,21 @@ class HomeScreen extends StatelessWidget {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Container(
-                                        width: width *
-                                            0.18, // 컨테이너의 크기를 조정하여 이미지를 원형으로 만들기
-                                        height: width *
-                                            0.18, // 컨테이너의 높이와 너비를 동일하게 설정하여 정사각형 모양으로 만들기
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
+                                      Card(
+                                        shadowColor: Colors.white,
+                                        elevation: 5,
+                                        clipBehavior: Clip.antiAlias,
+                                        shape: ContinuousRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                50), // 원하는 둥글기
+                                            side: const BorderSide(
+                                                width: 1, color: Colors.black)),
+                                        child: SizedBox(
+                                          width: width * 0.18,
+                                          height: width * 0.18,
+                                          child: const Image(
                                             image: AssetImage(
-                                                '/Users/zzuntekk/time_Capsule-main/images/basketball.png'),
+                                                '/Users/zzuntekk/time_Capsule-main/images/travel.png'),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -223,7 +232,7 @@ class HomeScreen extends StatelessWidget {
                                       SizedBox(
                                         width: width * 0.15,
                                         child: const Text(
-                                          '베스킷볼 프렌즈', // 예시 텍스트
+                                          '용인의 친구들', // 예시 텍스트
                                           style: TextStyle(
                                             color: Colors.black,
                                           ),
@@ -309,7 +318,7 @@ class HomeScreen extends StatelessWidget {
                                       SizedBox(
                                         width: width * 0.15,
                                         child: const Text(
-                                          '충성', // 예시 텍스트
+                                          '홍준택을 사랑하는 모임', // 예시 텍스트
                                           style: TextStyle(
                                             color: Colors.black,
                                           ),
@@ -347,12 +356,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
               } else {
-                return SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 7.0, horizontal: 7.0),
+                return SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(),
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -412,6 +420,7 @@ class HomeScreen extends StatelessWidget {
                                                       width: width * 0.9,
                                                       height: height * 0.35,
                                                       decoration: BoxDecoration(
+                                                        color: Colors.white,
                                                         border: Border.all(
                                                           color: Colors.black,
                                                           width: 0.5,
@@ -786,8 +795,14 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
+                    childCount: 3,
+                  ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisSpacing: height * 0.5,
+                    mainAxisExtent: width * 1.1,
                   ),
                 );
               }
@@ -808,28 +823,33 @@ class HomeScreen extends StatelessWidget {
           () {
             return BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              iconSize: width * 0.05,
+              iconSize: width * 0.07, // 아이콘 크기 증가
               unselectedItemColor: Colors.grey,
               showSelectedLabels: true,
               showUnselectedLabels: true,
               selectedItemColor: Colors.black,
               currentIndex: bottomButtonController.selectedIndex.value,
-              selectedLabelStyle: const TextStyle(color: Colors.black),
+              selectedLabelStyle: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: width * 0.035,
+                fontWeight: FontWeight.bold,
+              ),
+              unselectedLabelStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: width * 0.03,
+                fontWeight: FontWeight.w500,
+              ),
               items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
+                BottomNavigationBarItem(icon: Icon(Icons.group), label: '파티'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.group), label: 'Group'),
+                    icon: Icon(Icons.location_on_outlined), label: '맵'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.location_on_outlined), label: 'Map'),
-                BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.profile_circled),
-                    label: 'MyPage'),
+                    icon: Icon(CupertinoIcons.profile_circled), label: '마이'),
               ],
               onTap: (index) {
                 bottomButtonController.onTap(index);
-              } // 아 이 value(지금은 index) 값이 눌렀을 떄 index 제공해주는 값이네
-
-              ,
+              },
             );
           },
         ),
