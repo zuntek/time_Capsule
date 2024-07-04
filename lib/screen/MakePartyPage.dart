@@ -17,45 +17,31 @@ class MakePartyPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight: height * 0.065,
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: Icon(
-                CupertinoIcons.xmark,
-                size: width * 0.075,
-                color: Colors.black54,
-              )),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(left: 22, right: 10),
-              child: SizedBox(
-                width: width * 0.135,
-                height: height * 0.038,
-                child: TextButton(
-                    style: TextButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        foregroundColor: Colors.white,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.horizontal(
-                          left: Radius.circular(40),
-                          right: Radius.circular(40),
-                        ))),
+            toolbarHeight: height * 0.065,
+            leadingWidth: width * 0.8,
+            backgroundColor: Colors.white,
+            leading: Row(
+              children: [
+                IconButton(
                     onPressed: () {
-                      postController.sendData();
                       Get.back();
                     },
-                    child: Text(
-                      '완료',
-                      style: TextStyle(
-                          fontSize: width * 0.0353,
-                          fontWeight: FontWeight.w500),
+                    icon: Icon(
+                      CupertinoIcons.back,
+                      size: width * 0.075,
+                      color: Colors.black54,
                     )),
-              ),
+                Text(
+                  '파티 만들기',
+                  style: TextStyle(
+                    fontSize: width * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+            actions: const []),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -63,10 +49,8 @@ class MakePartyPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    '파티 만들기',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: width * 0.05),
+                  SizedBox(
+                    height: height * 0.03,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -111,6 +95,16 @@ class MakePartyPage extends StatelessWidget {
                           right: Radius.circular(10),
                         ),
                       ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.horizontal(
+                          left: Radius.circular(10),
+                          right: Radius.circular(10),
+                        ),
+                        borderSide: BorderSide(
+                          color: Colors.black, // 클릭했을 때 테두리 색상
+                          width: 2.0, // 테두리 두께 (원하는 경우 조정 가능)
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -133,6 +127,45 @@ class MakePartyPage extends StatelessWidget {
                           right: Radius.circular(10),
                         ),
                       ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.horizontal(
+                          left: Radius.circular(10),
+                          right: Radius.circular(10),
+                        ),
+                        borderSide: BorderSide(
+                          color: Colors.black, // 클릭했을 때 테두리 색상
+                          width: 2.0, // 테두리 두께 (원하는 경우 조정 가능)
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 22, right: 10),
+                    child: SizedBox(
+                      width: width * 0.9,
+                      height: height * 0.05,
+                      child: TextButton(
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              foregroundColor: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.horizontal(
+                                left: Radius.circular(40),
+                                right: Radius.circular(40),
+                              ))),
+                          onPressed: () {
+                            postController.sendData();
+                            Get.back();
+                          },
+                          child: Text(
+                            '완료',
+                            style: TextStyle(
+                                fontSize: width * 0.0353,
+                                fontWeight: FontWeight.w500),
+                          )),
                     ),
                   ),
                 ],

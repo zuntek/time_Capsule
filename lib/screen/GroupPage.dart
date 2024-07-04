@@ -10,6 +10,7 @@ import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/screen/NotificationPage.dart';
 import 'package:time_capsule/screen/PartyMemberList.dart';
+import 'package:time_capsule/screen/PartyRequestPage.dart';
 
 class GroupPage extends StatelessWidget {
   GroupPage({super.key});
@@ -836,12 +837,7 @@ class GroupPage extends StatelessWidget {
                                       ),
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return PartyMemberList();
-                                            },
-                                          );
+                                          Get.to(Partyrequestpage());
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
@@ -873,34 +869,46 @@ class GroupPage extends StatelessWidget {
                                         color: Colors.black,
                                         borderRadius: BorderRadius.circular(20),
                                       ),
-                                      child: GestureDetector(
-                                        onTap: () {
+                                      child: ElevatedButton(
+                                        onPressed: () {
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return PartyMemberList();
+                                              return Dialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                    vertical: height * 0.01,
+                                                    horizontal: width * 0.0 ;;'1,
+                                                  ), // 원하는 패딩 값으로 조정
+                                                  child: PartyMemberList(),
+                                                ),
+                                              );
                                             },
                                           );
-                                          // 이미지가 클릭되었을 때 수행할 작업을 여기에 추가
                                         },
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.black,
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              Colors.black, // 버튼 배경색 설정
+                                          shape: const RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.horizontal(
                                               left: Radius.circular(10),
                                               right: Radius.circular(10),
                                             ),
                                           ),
-                                          child: SizedBox(
-                                            width: width * 0.3,
-                                            height: height * 0.04,
-                                            child: const Center(
-                                              child: Text(
-                                                '파티멤버 보기',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
+                                        ),
+                                        child: SizedBox(
+                                          width: width * 0.3,
+                                          height: height * 0.04,
+                                          child: const Center(
+                                            child: Text(
+                                              '파티 멤버 보기',
+                                              style: TextStyle(
+                                                color: Colors.white,
                                               ),
                                             ),
                                           ),
@@ -1128,7 +1136,7 @@ class GroupPage extends StatelessWidget {
                                                       children: [
                                                         Icon(
                                                           color: Colors.white,
-                                                          CupertinoIcons.share,
+                                                          CupertinoIcons.heart,
                                                           size: width * 0.062,
                                                         ),
                                                         const Text(

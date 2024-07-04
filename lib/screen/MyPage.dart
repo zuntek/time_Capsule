@@ -13,6 +13,7 @@ import 'package:time_capsule/screen/Capsule.dart';
 import 'package:time_capsule/screen/FixProfile.dart';
 import 'package:time_capsule/screen/JoinPage.dart';
 import 'package:time_capsule/screen/LoginPage.dart';
+import 'package:time_capsule/screen/OnPost.dart';
 import 'package:time_capsule/widget/dropDownWidget.dart';
 
 class MyPage extends StatelessWidget {
@@ -672,7 +673,7 @@ class MyPage extends StatelessWidget {
                                                                         color: Colors
                                                                             .black,
                                                                         CupertinoIcons
-                                                                            .share,
+                                                                            .heart,
                                                                         size: width *
                                                                             0.062,
                                                                       ),
@@ -707,7 +708,7 @@ class MyPage extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Get.to(const LoginPage());
+                            Get.to(OnPost());
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black, // 버튼 배경색 설정

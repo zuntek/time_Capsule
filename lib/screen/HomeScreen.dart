@@ -577,7 +577,7 @@ class HomeScreen extends StatelessWidget {
                                                                           Icon(
                                                                             color:
                                                                                 Colors.white,
-                                                                            CupertinoIcons.share,
+                                                                            CupertinoIcons.heart,
                                                                             size:
                                                                                 width * 0.062,
                                                                           ),
