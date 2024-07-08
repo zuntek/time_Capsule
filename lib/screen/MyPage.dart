@@ -707,7 +707,9 @@ class MyPage extends StatelessWidget {
                           ],
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(OnPost());
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black, // 버튼 배경색 설정
                             shape: const RoundedRectangleBorder(

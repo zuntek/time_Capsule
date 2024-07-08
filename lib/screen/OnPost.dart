@@ -154,8 +154,8 @@ class OnPost extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         width: width * 0.02,
@@ -167,23 +167,26 @@ class OnPost extends StatelessWidget {
                             fontSize: 25,
                             color: Colors.black),
                       ),
-                    ],
-                  ),
-                  const Column(
-                    children: [
-                      Text(
-                        '경기도 용인시',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            color: Colors.black54),
-                      ),
-                      Text(
-                        '2024.05.11',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            color: Colors.black54),
+                      Row(
+                        children: [
+                          const Text(
+                            '경기도 용인시',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                                color: Colors.black54),
+                          ),
+                          SizedBox(
+                            width: width * 0.02,
+                          ),
+                          const Text(
+                            '2024.05.11',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 10,
+                                color: Colors.black54),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -197,28 +200,6 @@ class OnPost extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.only(left: 3),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                color: Colors.white,
-                                CupertinoIcons.chat_bubble,
-                                size: width * 0.062,
-                              ),
-                              const Text(
-                                '13',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                         TextButton(
                           onPressed: () {},
                           style: TextButton.styleFrom(
