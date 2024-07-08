@@ -75,7 +75,7 @@ class Partyrequestpage extends StatelessWidget {
               ]),
             ),
             SliverPadding(
-              padding: EdgeInsets.all(width * 0.02),
+              padding: EdgeInsets.symmetric(),
               sliver: SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.02),

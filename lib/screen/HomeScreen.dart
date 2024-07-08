@@ -6,11 +6,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:time_capsule/controller/LocationController.dart';
 import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/Model/PostModel.dart';
 import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
+import 'package:time_capsule/screen/CommentScreen.dart';
 import 'package:time_capsule/screen/MakePartyPage.dart';
 import 'package:time_capsule/widget/Expandable_fab.dart';
 import 'package:time_capsule/widget/SearchBar.dart';
@@ -710,7 +712,10 @@ class HomeScreen extends StatelessWidget {
                                                                   children: [
                                                                     TextButton(
                                                                       onPressed:
-                                                                          () {},
+                                                                          () {
+                                                                        Get.to(
+                                                                            CommentScreen());
+                                                                      },
                                                                       style: TextButton
                                                                           .styleFrom(
                                                                         padding: const EdgeInsets
@@ -758,7 +763,7 @@ class HomeScreen extends StatelessWidget {
                                                                           Icon(
                                                                             color:
                                                                                 Colors.white,
-                                                                            CupertinoIcons.share,
+                                                                            CupertinoIcons.heart,
                                                                             size:
                                                                                 width * 0.062,
                                                                           ),

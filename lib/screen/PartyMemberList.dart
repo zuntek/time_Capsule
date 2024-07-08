@@ -25,18 +25,17 @@ class PartyMemberList extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: width * 0.03),
                   IconButton(
                       onPressed: () {
                         Get.back();
                       },
                       icon: Icon(
-                        CupertinoIcons.back,
+                        CupertinoIcons.xmark,
                         size: width * 0.075,
                         color: Colors.black,
                       )),
                   Text(
-                    '파티 신청 현황',
+                    '파티 멤버:5',
                     style: TextStyle(
                       fontSize: width * 0.05,
                       fontWeight: FontWeight.bold,
@@ -48,47 +47,106 @@ class PartyMemberList extends StatelessWidget {
               Row(
                 children: [
                   Card(
-                    shadowColor: const Color.fromARGB(255, 147, 167, 242),
-                    elevation: 3,
+                    shadowColor: Colors.white,
+                    elevation: 5,
                     clipBehavior: Clip.antiAlias,
-                    shape: const CircleBorder(
-                      side: BorderSide(
-                        width: 1,
-                      ),
-                    ),
+                    shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(50), // 원하는 둥글기
+                        side: const BorderSide(width: 1, color: Colors.black)),
                     child: SizedBox(
-                      width: width * 0.08,
-                      height: height * 0.08,
+                      width: width * 0.18,
+                      height: width * 0.18,
                       child: const Image(
-                        image: AssetImage('images/profile.png'),
+                        image: AssetImage(
+                            '/Users/zzuntekk/time_Capsule-main/images/travel.png'),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  SizedBox(width: width * 0.02),
+                  SizedBox(width: width * 0.05),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'zzuntekk',
+                        'zzunktekk',
                         style: TextStyle(
-                          fontSize: width * 0.03,
+                          fontSize: width * 0.05,
                           fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
-                      Text(
-                        '홍준택',
-                        style: TextStyle(
-                          fontSize: width * 0.02,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            '파티장',
+                            style: TextStyle(
+                              fontSize: width * 0.04,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: width * 0.02,
-                  ),
-                  const Icon(
+                  SizedBox(width: width * 0.05),
+                  Icon(
                     CupertinoIcons.person_solid,
                     color: Colors.yellow,
+                    size: width * 0.05,
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Card(
+                    shadowColor: Colors.white,
+                    elevation: 5,
+                    clipBehavior: Clip.antiAlias,
+                    shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(50), // 원하는 둥글기
+                        side: const BorderSide(width: 1, color: Colors.black)),
+                    child: SizedBox(
+                      width: width * 0.18,
+                      height: width * 0.18,
+                      child: const Image(
+                        image: AssetImage(
+                            '/Users/zzuntekk/time_Capsule-main/images/basketball.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: width * 0.05),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'handue',
+                        style: TextStyle(
+                          fontSize: width * 0.05,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '파티원',
+                            style: TextStyle(
+                              fontSize: width * 0.04,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: width * 0.05),
+                  Icon(
+                    CupertinoIcons.person_2,
+                    color: Colors.black,
+                    size: width * 0.05,
                   )
                 ],
               ),
@@ -111,81 +169,38 @@ class PartyMemberList extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: width * 0.02),
+                  SizedBox(width: width * 0.05),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'zzuntekk',
+                        'insu_1004',
                         style: TextStyle(
                           fontSize: width * 0.05,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      Text(
-                        '홍준택',
-                        style: TextStyle(
-                          fontSize: width * 0.03,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Card(
-                        shadowColor: Colors.white,
-                        elevation: 5,
-                        clipBehavior: Clip.antiAlias,
-                        shape: ContinuousRectangleBorder(
-                            borderRadius: BorderRadius.circular(50), // 원하는 둥글기
-                            side: const BorderSide(
-                                width: 1, color: Colors.black)),
-                        child: SizedBox(
-                          width: width * 0.18,
-                          height: width * 0.18,
-                          child: const Image(
-                            image: AssetImage(
-                                '/Users/zzuntekk/time_Capsule-main/images/travel.png'),
-                            fit: BoxFit.cover,
+                      Row(
+                        children: [
+                          Text(
+                            '파티원',
+                            style: TextStyle(
+                              fontSize: width * 0.04,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                      ),
-                      const Text(
-                        'zuntek', // 예시 텍스트
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(width: width * 0.02),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.group,
-                        color: Colors.amber,
-                        size: width * 0.18,
-                      ),
-                      Text(
-                        '파티장',
-                        style: TextStyle(
-                          fontSize: width * 0.06,
-                          color: Colors.black,
-                        ),
+                        ],
                       ),
                     ],
                   ),
+                  SizedBox(width: width * 0.05),
+                  Icon(
+                    CupertinoIcons.person_2,
+                    color: Colors.black,
+                    size: width * 0.05,
+                  )
                 ],
               ),
             ],
