@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/controller/PostController.dart';
+import 'package:time_capsule/widget/%08WidgetTools.dart';
 
 class CommentScreen extends StatelessWidget {
   CommentScreen({super.key});
@@ -65,146 +66,25 @@ class CommentScreen extends StatelessWidget {
                     color: Colors.black,
                     width: 0.5,
                   ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
                 ),
                 child: Column(children: [
                   SizedBox(
                     height: height * 0.005,
                   ),
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Card(
-                            clipBehavior: Clip.antiAlias,
-                            shape: const CircleBorder(
-                              side: BorderSide(
-                                width: 1,
-                              ),
-                            ),
-                            child: SizedBox(
-                              width: width * 0.1,
-                              height: height * 0.1,
-                              child: const Image(
-                                image: AssetImage('images/profile.png'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: width * 0.02),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'handue',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '니 한골도 못넣었잖아;;',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  const Comment(
+                    imagePath: 'images/profile.png',
+                    nickname: 'handue',
+                    commentText: '니 한골도 못넣었잖아;;',
                   ),
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Card(
-                            clipBehavior: Clip.antiAlias,
-                            shape: const CircleBorder(
-                              side: BorderSide(
-                                width: 1,
-                              ),
-                            ),
-                            child: SizedBox(
-                              width: width * 0.1,
-                              height: height * 0.1,
-                              child: const Image(
-                                image: AssetImage('images/profile.png'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: width * 0.02),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'zuntek',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * 0.8,
-                            child: const Text(
-                              '니 한골도 못넣kdsahfasdkljfhadsjfksdhflksdhfsjkadfhsdkjlfhdkfjlhdsfklsdbfdskjlbvdslk,hdjsklfdshfkladsfhakjlfhdkljfas었잖아;;',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  const Comment(
+                    imagePath: 'images/profile.png',
+                    nickname: 'handue',
+                    commentText: '니 한골도 못넣었잖아;;',
                   ),
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Card(
-                            clipBehavior: Clip.antiAlias,
-                            shape: const CircleBorder(
-                              side: BorderSide(
-                                width: 1,
-                              ),
-                            ),
-                            child: SizedBox(
-                              width: width * 0.1,
-                              height: height * 0.1,
-                              child: const Image(
-                                image: AssetImage('images/bear.png'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: width * 0.02),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'insu_1004',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'ㅇㅈㅇㅈ',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  const Comment(
+                    imagePath: 'images/profile.png',
+                    nickname: 'handue',
+                    commentText: '니 한골도 못넣었잖아;;',
                   ),
                 ]),
               ),

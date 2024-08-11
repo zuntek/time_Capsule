@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: false,
       ),
       title: 'hi',
-      home: MyPage(),
+      home: HomeScreen(),
     );
   }
 }

@@ -14,6 +14,8 @@ import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/screen/CommentScreen.dart';
 import 'package:time_capsule/screen/MakePartyPage.dart';
+import 'package:time_capsule/screen/OnPost.dart';
+import 'package:time_capsule/widget/%08WidgetTools.dart';
 import 'package:time_capsule/widget/Expandable_fab.dart';
 import 'package:time_capsule/widget/SearchBar.dart';
 import 'package:time_capsule/widget/dropDownWidget.dart';
@@ -203,134 +205,19 @@ class HomeScreen extends StatelessWidget {
                                 SizedBox(
                                   width: width * 0.02,
                                 ),
-                                TextButton(
-                                  onPressed: () {},
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: width * 0.03),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Card(
-                                        shadowColor: Colors.white,
-                                        elevation: 5,
-                                        clipBehavior: Clip.antiAlias,
-                                        shape: ContinuousRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                50), // 원하는 둥글기
-                                            side: const BorderSide(
-                                                width: 1, color: Colors.black)),
-                                        child: SizedBox(
-                                          width: width * 0.18,
-                                          height: width * 0.18,
-                                          child: const Image(
-                                            image: AssetImage(
-                                                '/Users/zzuntekk/time_Capsule-main/images/travel.png'),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: width * 0.15,
-                                        child: const Text(
-                                          '용인의 친구들', // 예시 텍스트
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                          overflow: TextOverflow
-                                              .ellipsis, // 텍스트가 길 경우 '...'으로 표시
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                const partyButton(
+                                  imagePath:
+                                      '/Users/zzuntekk/time_Capsule-main/images/travel.png',
+                                  text: '용인의 친구들',
                                 ),
-                                TextButton(
-                                  onPressed: () {},
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: width * 0.03),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Card(
-                                        shadowColor: Colors.white,
-                                        elevation: 5,
-                                        clipBehavior: Clip.antiAlias,
-                                        shape: ContinuousRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                50), // 원하는 둥글기
-                                            side: const BorderSide(
-                                                width: 1, color: Colors.black)),
-                                        child: SizedBox(
-                                          width: width * 0.18,
-                                          height: width * 0.18,
-                                          child: const Image(
-                                            image: AssetImage(
-                                                '/Users/zzuntekk/time_Capsule-main/images/foot.png'),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: width * 0.15,
-                                        child: const Text(
-                                          '풋살은 즐거워', // 예시 텍스트
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                          overflow: TextOverflow
-                                              .ellipsis, // 텍스트가 길 경우 '...'으로 표시
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                const partyButton(
+                                  imagePath:
+                                      '/Users/zzuntekk/time_Capsule-main/images/foot.png',
+                                  text: '풋살은 즐거워',
                                 ),
-                                TextButton(
-                                  onPressed: () {},
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: width * 0.03),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Card(
-                                        shadowColor: Colors.white,
-                                        elevation: 5,
-                                        clipBehavior: Clip.antiAlias,
-                                        shape: ContinuousRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                50), // 원하는 둥글기
-                                            side: const BorderSide(
-                                                width: 1, color: Colors.black)),
-                                        child: SizedBox(
-                                          width: width * 0.18,
-                                          height: width * 0.18,
-                                          child: const Image(
-                                            image: AssetImage(
-                                                'images/profile.png'),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: width * 0.15,
-                                        child: const Text(
-                                          '홍준택을 사랑하는 모임', // 예시 텍스트
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                          overflow: TextOverflow
-                                              .ellipsis, // 텍스트가 길 경우 '...'으로 표시
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                const partyButton(
+                                  imagePath: 'images/profile.png',
+                                  text: '홍준택을 사랑하는 모임',
                                 ),
                               ],
                             ),
@@ -400,403 +287,24 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(
                                 height: height * 0.01,
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(OnPost());
+                                },
+                                child: postWidget(
+                                  imagePath:
+                                      '/Users/zzuntekk/time_Capsule-main/images/foot.png',
+                                  nickname: 'insu_1004',
+                                  location: '경기도 용인시',
+                                  date: '2024.05.11',
+                                  onCommentPressed: () {
+                                    Get.to(CommentScreen());
+                                  },
+                                  onLikePressed: () {
+                                    // 좋아요 버튼 클릭 시 동작 정의
+                                  },
                                 ),
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                          height: height * 0.4,
-                                          width: width * 0.9,
-                                          child: StreamBuilder<int>(
-                                            stream: _autoScrollStream,
-                                            builder: (context, snapshot) {
-                                              return PageView(
-                                                children: <Widget>[
-                                                  Container(
-                                                      width: width * 0.9,
-                                                      height: height * 0.35,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        border: Border.all(
-                                                          color: Colors.black,
-                                                          width: 0.5,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                          20,
-                                                        ),
-                                                      ),
-                                                      child: Column(
-                                                        children: [
-                                                          ClipRRect(
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .only(
-                                                              topRight: Radius
-                                                                  .circular(20),
-                                                              topLeft: Radius
-                                                                  .circular(20),
-                                                            ),
-                                                            child: Image.asset(
-                                                              '/Users/zzuntekk/time_Capsule-main/images/foot.png',
-                                                              fit: BoxFit.cover,
-                                                              width:
-                                                                  width * 0.9,
-                                                              height:
-                                                                  height * 0.3,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                height * 0.01,
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    width:
-                                                                        width *
-                                                                            0.02,
-                                                                  ),
-                                                                  const Text(
-                                                                    'insu_1004',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        fontSize:
-                                                                            25,
-                                                                        color: Colors
-                                                                            .black),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              const Column(
-                                                                children: [
-                                                                  Text(
-                                                                    '경기도 용인시',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        fontSize:
-                                                                            10,
-                                                                        color: Colors
-                                                                            .black54),
-                                                                  ),
-                                                                  Text(
-                                                                    '2024.05.11',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        fontSize:
-                                                                            10,
-                                                                        color: Colors
-                                                                            .black54),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Container(
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .only(
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            20),
-                                                                    bottomLeft:
-                                                                        Radius.circular(
-                                                                            20),
-                                                                  ),
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                                child: Row(
-                                                                  children: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () {},
-                                                                      style: TextButton
-                                                                          .styleFrom(
-                                                                        padding: const EdgeInsets
-                                                                            .only(
-                                                                            left:
-                                                                                3),
-                                                                      ),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.min,
-                                                                        children: [
-                                                                          Icon(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            CupertinoIcons.chat_bubble,
-                                                                            size:
-                                                                                width * 0.062,
-                                                                          ),
-                                                                          const Text(
-                                                                            '13',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () {},
-                                                                      style: TextButton
-                                                                          .styleFrom(
-                                                                        padding: const EdgeInsets
-                                                                            .only(
-                                                                            left:
-                                                                                5),
-                                                                      ),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.min,
-                                                                        children: [
-                                                                          Icon(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            CupertinoIcons.heart,
-                                                                            size:
-                                                                                width * 0.062,
-                                                                          ),
-                                                                          const Text(
-                                                                            '13',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      )),
-                                                  Container(
-                                                      width: width * 0.9,
-                                                      height: height * 0.35,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                          color: Colors.black,
-                                                          width: 0.5,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                          20,
-                                                        ),
-                                                      ),
-                                                      child: Column(
-                                                        children: [
-                                                          ClipRRect(
-                                                            borderRadius:
-                                                                const BorderRadius
-                                                                    .only(
-                                                              topRight: Radius
-                                                                  .circular(20),
-                                                              topLeft: Radius
-                                                                  .circular(20),
-                                                            ),
-                                                            child: Image.asset(
-                                                              '/Users/zzuntekk/time_Capsule-main/images/eye.png',
-                                                              fit: BoxFit.cover,
-                                                              width:
-                                                                  width * 0.9,
-                                                              height:
-                                                                  height * 0.3,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                height * 0.01,
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    width:
-                                                                        width *
-                                                                            0.02,
-                                                                  ),
-                                                                  const Text(
-                                                                    'zzuntekk',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        fontSize:
-                                                                            25,
-                                                                        color: Colors
-                                                                            .black),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              const Column(
-                                                                children: [
-                                                                  Text(
-                                                                    '서울시 강서구',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        fontSize:
-                                                                            10,
-                                                                        color: Colors
-                                                                            .black54),
-                                                                  ),
-                                                                  Text(
-                                                                    '2024.06.11',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        fontSize:
-                                                                            10,
-                                                                        color: Colors
-                                                                            .black54),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Container(
-                                                                decoration:
-                                                                    const BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .only(
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            20),
-                                                                    bottomLeft:
-                                                                        Radius.circular(
-                                                                            20),
-                                                                  ),
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                                child: Row(
-                                                                  children: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Get.to(
-                                                                            CommentScreen());
-                                                                      },
-                                                                      style: TextButton
-                                                                          .styleFrom(
-                                                                        padding: const EdgeInsets
-                                                                            .only(
-                                                                            left:
-                                                                                3),
-                                                                      ),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.min,
-                                                                        children: [
-                                                                          Icon(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            CupertinoIcons.chat_bubble,
-                                                                            size:
-                                                                                width * 0.062,
-                                                                          ),
-                                                                          const Text(
-                                                                            '13',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () {},
-                                                                      style: TextButton
-                                                                          .styleFrom(
-                                                                        padding: const EdgeInsets
-                                                                            .only(
-                                                                            left:
-                                                                                5),
-                                                                      ),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.min,
-                                                                        children: [
-                                                                          Icon(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            CupertinoIcons.heart,
-                                                                            size:
-                                                                                width * 0.062,
-                                                                          ),
-                                                                          const Text(
-                                                                            '13',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Colors.black,
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      )),
-                                                ],
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: height * 0.01,
-                              ),
+                              )
                             ],
                           ),
                         ),
@@ -806,7 +314,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    mainAxisSpacing: height * 0.5,
+                    mainAxisSpacing: height * 0.05,
                     mainAxisExtent: width * 1.1,
                   ),
                 );
