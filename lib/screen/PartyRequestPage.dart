@@ -291,16 +291,6 @@ class FirstScreen extends StatelessWidget {
               ),
             ],
           ),
-          const RequestWidget(
-            imagePath: 'images/foot.png',
-            partyName: '풋살은 즐거워',
-            contentText: '풋살은 즐거워에서 파티초대를 보냈습니다.',
-          ),
-          const RequestWidget(
-            imagePath: 'images/foot.png',
-            partyName: '풋살은 즐거워',
-            contentText: '풋살은 즐거워에서 파티초대를 보냈습니다.',
-          )
         ],
       ),
     );

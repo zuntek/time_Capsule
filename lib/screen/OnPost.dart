@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/controller/PostController.dart';
+import 'package:time_capsule/main.dart';
+import 'package:time_capsule/widget/%08WidgetTools.dart';
 
 class OnPost extends StatelessWidget {
   OnPost({super.key});
@@ -17,6 +19,7 @@ class OnPost extends StatelessWidget {
     });
     return controller.stream;
   })();
+
   final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
   final int _widgetCount = 3;
   final PageController _pageController = PageController();
@@ -118,26 +121,13 @@ class OnPost extends StatelessWidget {
                           child: StreamBuilder<int>(
                             stream: _autoScrollStream,
                             builder: (context, snapshot) {
-                              return PageView(
-                                children: <Widget>[
-                                  Container(
-                                      width: width * 0.9,
-                                      height: height * 0.35,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          ClipRRect(
-                                            child: Image.asset(
-                                              '/Users/zzuntekk/time_Capsule-main/images/foot.png',
-                                              fit: BoxFit.cover,
-                                              width: width * 0.9,
-                                              height: height * 0.38,
-                                            ),
-                                          ),
-                                        ],
-                                      )),
+                              return MyPageView(
+                                imagePaths: const [
+                                  '/Users/zzuntekk/time_Capsule-main/images/basketball.png',
+                                  '/Users/zzuntekk/time_Capsule-main/images/basketball.png',
+                                  '/Users/zzuntekk/time_Capsule-main/images/basketball.png',
+                                  '/Users/zzuntekk/time_Capsule-main/images/basketball.png',
+                                  '/Users/zzuntekk/time_Capsule-main/images/basketball.png',
                                 ],
                               );
                             },
@@ -267,91 +257,15 @@ class OnPost extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Card(
-                            clipBehavior: Clip.antiAlias,
-                            shape: const CircleBorder(
-                              side: BorderSide(
-                                width: 1,
-                              ),
-                            ),
-                            child: SizedBox(
-                              width: width * 0.1,
-                              height: height * 0.1,
-                              child: const Image(
-                                image: AssetImage('images/profile.png'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: width * 0.02),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'handue',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '니 한골도 못넣었잖아;;',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  const Comment(
+                    imagePath: 'images/profile.png',
+                    nickname: 'handue',
+                    commentText: '니 한골도 못넣었잖아;;',
                   ),
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Card(
-                            clipBehavior: Clip.antiAlias,
-                            shape: const CircleBorder(
-                              side: BorderSide(
-                                width: 1,
-                              ),
-                            ),
-                            child: SizedBox(
-                              width: width * 0.1,
-                              height: height * 0.1,
-                              child: const Image(
-                                image: AssetImage('images/bear.png'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: width * 0.02),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'insu_1004',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'ㅇㅈㅇㅈ',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  const Comment(
+                    imagePath: 'images/profile.png',
+                    nickname: 'handue',
+                    commentText: '니 한골도 못넣었잖아;;',
                   ),
                 ]),
               ),

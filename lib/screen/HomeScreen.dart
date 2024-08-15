@@ -300,9 +300,6 @@ class HomeScreen extends StatelessWidget {
                                   onCommentPressed: () {
                                     Get.to(CommentScreen());
                                   },
-                                  onLikePressed: () {
-                                    // 좋아요 버튼 클릭 시 동작 정의
-                                  },
                                 ),
                               )
                             ],

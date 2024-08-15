@@ -604,9 +604,6 @@ class GroupPage extends StatelessWidget {
                                   onCommentPressed: () {
                                     // 댓글 버튼 클릭 시 동작 정의
                                   },
-                                  onLikePressed: () {
-                                    // 좋아요 버튼 클릭 시 동작 정의
-                                  },
                                 ),
                                 SizedBox(
                                   height: height * 0.02,

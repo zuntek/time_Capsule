@@ -66,16 +66,16 @@ class postWidget extends StatelessWidget {
   final String location;
   final String date;
   final VoidCallback? onCommentPressed;
-  final VoidCallback? onLikePressed;
 
-  const postWidget({
+  final ValueNotifier<int> likeCount = ValueNotifier<int>(0);
+
+  postWidget({
     super.key,
     required this.imagePath,
     required this.nickname,
     required this.location,
     required this.date,
     this.onCommentPressed,
-    this.onLikePressed,
   });
 
   @override
@@ -183,7 +183,9 @@ class postWidget extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: onLikePressed,
+                      onPressed: () {
+                        likeCount.value++;
+                      },
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.only(left: 5),
                       ),
@@ -195,11 +197,16 @@ class postWidget extends StatelessWidget {
                             color: Colors.white,
                             size: width * 0.062,
                           ),
-                          const Text(
-                            '13', // 좋아요 수
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                          ValueListenableBuilder<int>(
+                            valueListenable: likeCount,
+                            builder: (context, value, child) {
+                              return Text(
+                                '$value', // 좋아요 수
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -468,5 +475,85 @@ class RequestWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class MyPageView extends StatelessWidget {
+  final List<String> imagePaths;
+  final ValueNotifier<int> _currentPageNotifier = ValueNotifier<int>(0);
+  MyPageView({super.key, required this.imagePaths});
+  final int count = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double width = screenSize.width;
+    double height = screenSize.height;
+    int totalPages = imagePaths.length;
+
+    return Stack(children: [
+      PageView.builder(
+        itemCount: totalPages,
+        onPageChanged: (int index) {
+          _currentPageNotifier.value = index;
+        },
+        itemBuilder: (context, index) {
+          return Container(
+            width: width * 0.9,
+            height: height * 0.35,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                ClipRRect(
+                  child: Image.asset(
+                    imagePaths[index],
+                    fit: BoxFit.cover,
+                    width: width * 0.9,
+                    height: height * 0.38,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+      Positioned(
+        bottom: 16,
+        left: 16,
+        right: 16,
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.7), // 반투명 배경색
+              borderRadius: BorderRadius.circular(12), // 둥근 모서리
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 6,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: ValueListenableBuilder<int>(
+              valueListenable: _currentPageNotifier,
+              builder: (context, currentPage, child) {
+                return Text(
+                  ' ${currentPage + 1} / $totalPages',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // 글자 색상
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      )
+    ]);
   }
 }

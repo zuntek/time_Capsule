@@ -390,10 +390,6 @@ class MyPage extends StatelessWidget {
                             return Container(
                               decoration: const BoxDecoration(
                                 color: Colors.black,
-                                borderRadius: BorderRadius.horizontal(
-                                  left: Radius.circular(20),
-                                  right: Radius.circular(20),
-                                ),
                               ),
                               child: Row(
                                 mainAxisAlignment:
@@ -452,6 +448,7 @@ class MyPage extends StatelessWidget {
                         ValueListenableBuilder<bool>(
                           valueListenable: showFirstScreen,
                           builder: (context, value, child) {
+                            // 삼항 연산자를 사용해서 선택적으로 화면 표시
                             return value ? const FirstScreen() : Sildes();
                           },
                         ),
@@ -521,114 +518,8 @@ class FirstScreen extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
-    return CustomScrollView(slivers: [
-      SliverPadding(
-        padding: const EdgeInsets.symmetric(),
-        sliver: SliverGrid(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return Container(
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  border: Border.all(
-                    width: 0.3,
-                    color: const Color.fromARGB(255, 0, 0, 0),
-                  ),
-                  borderRadius: const BorderRadius.horizontal(
-                    left: Radius.circular(20),
-                    right: Radius.circular(20),
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      spreadRadius: 0,
-                      blurRadius: 5.0,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.04,
-                        vertical: height * 0.02,
-                      ),
-                      child: SizedBox(
-                        width: width * 0.8,
-                        height: height * 0.1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              width: 0.0,
-                              color: Colors.white,
-                            ),
-                            borderRadius: const BorderRadius.horizontal(
-                              left: Radius.circular(20),
-                              right: Radius.circular(20),
-                            ),
-                            image: const DecorationImage(
-                              image: AssetImage("images/background.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.02,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '2024.4.10/서울시 강서구',
-                            style: TextStyle(
-                              fontSize: width * 0.02,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * 0.01,
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Icon(
-                                CupertinoIcons.heart,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Icon(
-                                CupertinoIcons.chat_bubble,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            childCount: 6,
-          ),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 3,
-            mainAxisSpacing: 5,
-            mainAxisExtent: 200,
-          ),
-        ),
-      )
-    ]);
+
+    return const SizedBox();
   }
 }
 
