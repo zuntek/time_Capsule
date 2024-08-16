@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class partyButton extends StatelessWidget {
   final String imagePath;
@@ -65,6 +66,7 @@ class postWidget extends StatelessWidget {
   final String nickname;
   final String location;
   final String date;
+  final String content;
   final VoidCallback? onCommentPressed;
 
   final ValueNotifier<int> likeCount = ValueNotifier<int>(0);
@@ -75,6 +77,7 @@ class postWidget extends StatelessWidget {
     required this.nickname,
     required this.location,
     required this.date,
+    required this.content,
     this.onCommentPressed,
   });
 
@@ -165,21 +168,10 @@ class postWidget extends StatelessWidget {
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.only(left: 3),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            CupertinoIcons.chat_bubble,
-                            color: Colors.white,
-                            size: width * 0.062,
-                          ),
-                          const Text(
-                            '13', // 댓글 수
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
+                      child: Icon(
+                        CupertinoIcons.chat_bubble,
+                        color: Colors.white,
+                        size: width * 0.062,
                       ),
                     ),
                     TextButton(
@@ -212,6 +204,28 @@ class postWidget extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: height * 0.01,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: width * 0.02,
+              ),
+              SizedBox(
+                width: width * 0.85,
+                child: Text(
+                  content, // 전달된 텍스트 표시
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  overflow: TextOverflow.ellipsis, // 텍스트가 길 경우 '...'으로 표시
+                  maxLines: 1,
                 ),
               ),
             ],

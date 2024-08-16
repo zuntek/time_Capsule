@@ -4,10 +4,14 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:time_capsule/controller/PostController.dart';
+import 'package:time_capsule/screen/CommentScreen.dart';
+import 'package:time_capsule/widget/%08WidgetTools.dart';
 
 class AddPostPage extends StatelessWidget {
   AddPostPage({super.key});
   PostController postController = Get.find<PostController>();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -211,9 +215,29 @@ class AddPostPage extends StatelessWidget {
                                 right: Radius.circular(40),
                               ))),
                           onPressed: () {
-                            postController.sendData();
-                            Get.back();
+                            String location = locationController.text;
+                            String content = contentController.text;
+                            String date = DateTime.now()
+                                .toString()
+                                .split(' ')[0]; // 당일 날짜
+                            postWidget newPost = postWidget(
+                              imagePath:
+                                  '/Users/zzuntekk/time_Capsule-main/images/foot.png',
+                              nickname: 'insu_1004',
+                              location: location,
+                              date: date,
+                              content: content,
+                              onCommentPressed: () {
+                                Get.to(CommentScreen());
+                              },
+                            );
+
+                            // 여기에 원하는 대로 newPost를 처리하거나 사용하세요.
+                            /*Get.to(() => newPost);*/ // 예시로 Get.to로 해당 위젯을 보여줌
                           },
+                          /* postController.sendData();
+                            Get.back();*/
+
                           child: Text(
                             '완료',
                             style: TextStyle(

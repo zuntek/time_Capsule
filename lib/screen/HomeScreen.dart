@@ -300,6 +300,8 @@ class HomeScreen extends StatelessWidget {
                                   onCommentPressed: () {
                                     Get.to(CommentScreen());
                                   },
+                                  content:
+                                      '오늘 한골 넣었다 기분 짱 좋다 한번더 도전해서 3골 넣어봐야징',
                                 ),
                               )
                             ],
