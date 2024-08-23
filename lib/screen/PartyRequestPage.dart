@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/BottomButtonController.dart';
 import 'package:time_capsule/controller/PostController.dart';
-import 'package:time_capsule/widget/%08WidgetTools.dart';
+import 'package:time_capsule/widget/WidgetTools.dart';
 
 class Partyrequestpage extends StatelessWidget {
   Partyrequestpage({super.key});

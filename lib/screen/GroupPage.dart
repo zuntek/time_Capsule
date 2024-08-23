@@ -11,7 +11,7 @@ import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/screen/NotificationPage.dart';
 import 'package:time_capsule/screen/PartyMemberList.dart';
 import 'package:time_capsule/screen/PartyRequestPage.dart';
-import 'package:time_capsule/widget/%08WidgetTools.dart';
+import 'package:time_capsule/widget/WidgetTools.dart';
 
 class GroupPage extends StatelessWidget {
   GroupPage({super.key});
@@ -575,9 +575,15 @@ class GroupPage extends StatelessWidget {
                                   const Text(
                                     '파티의 최신글',
                                     style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 28, // 폰트 크기를 약간 더 키웠습니다.
+                                      fontWeight:
+                                          FontWeight.w600, // 폰트 굵기를 조정했습니다.
                                       color: Colors.black,
+                                      decoration:
+                                          TextDecoration.underline, // 밑줄 추가
+                                      decorationColor:
+                                          Colors.black, // 밑줄 색상을 회색으로 설정
+                                      decorationThickness: 2.0,
                                     ),
                                   ),
                                 ],

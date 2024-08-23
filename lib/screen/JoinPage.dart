@@ -1,20 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart';
-
-import 'package:intl/intl.dart'; // DateFormat을 사용하기 위한 import
+import 'package:intl/intl.dart';
 
 class JoinPage extends StatelessWidget {
   JoinPage({super.key});
-  final TextEditingController _dateController =
-      TextEditingController(); // _dateController 정의
+
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
+
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
@@ -28,18 +25,20 @@ class JoinPage extends StatelessWidget {
                   Text(
                     'CapInNet',
                     style: TextStyle(
-                        fontFamily: 'Kalam',
-                        fontSize: width * 0.075,
-                        fontWeight: FontWeight.bold,
-                        color: const Color.fromARGB(255, 53, 68, 80)),
+                      fontFamily: 'Kalam',
+                      fontSize: width * 0.075,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 53, 68, 80),
+                    ),
                   ),
                   Text(
                     '회원가입을 환영합니다!',
                     style: TextStyle(
-                        fontFamily: 'Kalam',
-                        fontSize: width * 0.035,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black.withOpacity(0.5)),
+                      fontFamily: 'Kalam',
+                      fontSize: width * 0.035,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
                   ),
                   SizedBox(height: height * 0.05),
                   TextFormField(
@@ -56,8 +55,7 @@ class JoinPage extends StatelessWidget {
                         children: [
                           Expanded(
                             child: SizedBox(
-                              height: height * 0.08, // 텍스트 입력 필드의 높이 조정
-
+                              height: height * 0.08,
                               child: const TextField(
                                 decoration: InputDecoration(
                                   hintText: "닉네임",
@@ -67,7 +65,7 @@ class JoinPage extends StatelessWidget {
                                   hintStyle: TextStyle(color: Colors.grey),
                                 ),
                                 maxLength: 20,
-                                maxLines: 1, // 단일 라인 입력으로 변경
+                                maxLines: 1,
                               ),
                             ),
                           ),
@@ -122,7 +120,7 @@ class JoinPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: height * 0.02),
-                  _buildDateOfBirthField(context), // BuildContext 전달
+                  _buildDateOfBirthField(context),
                   SizedBox(height: height * 0.02),
                   _buildPhoneNumberField(),
                   SizedBox(height: height * 0.02),
@@ -131,7 +129,7 @@ class JoinPage extends StatelessWidget {
                     height: height * 0.06,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black, // 배경색 검은색
+                        backgroundColor: Colors.black,
                       ),
                       onPressed: () {},
                       child: const Text(
@@ -153,37 +151,37 @@ class JoinPage extends StatelessWidget {
 
   Widget _buildDateOfBirthField(BuildContext context) {
     return InkWell(
-      onTap: () {
-        _selectDate(context);
+      onTap: () async {
+        final DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
+        );
+
+        if (picked != null) {
+          _dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+          (context as Element).markNeedsBuild(); // Rebuild the widget tree
+        }
       },
-      child: const InputDecorator(
-        decoration: InputDecoration(
+      child: InputDecorator(
+        decoration: const InputDecoration(
           labelText: '생년월일',
           border: OutlineInputBorder(),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('YYYY-MM-DD'),
-            Icon(Icons.calendar_today),
+            Text(
+              _dateController.text.isEmpty
+                  ? 'YYYY-MM-DD'
+                  : _dateController.text,
+            ),
+            const Icon(Icons.calendar_today),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-
-    if (picked != null) {
-      final formattedDate = DateFormat('yyyy-MM-dd').format(picked);
-      _dateController.text = formattedDate;
-    }
   }
 
   Widget _buildPhoneNumberField() {

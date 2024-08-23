@@ -80,7 +80,7 @@ class MapPage extends StatelessWidget {
           },
         );
       }),
-      floatingActionButton: SizedBox(
+      /* floatingActionButton: SizedBox(
         width: width * 0.13,
         height: height * 0.0601,
         child: FloatingActionButton(
@@ -107,7 +107,7 @@ class MapPage extends StatelessWidget {
           //   color: Color.fromARGB(255, 88, 88, 88),
           // ),
         ),
-      ),
+      ),*/
     );
   }
 }

@@ -571,3 +571,179 @@ class MyPageView extends StatelessWidget {
     ]);
   }
 }
+
+class onPostWidget extends StatelessWidget {
+  final String imagePath;
+  final String nickname;
+  final String location;
+  final String date;
+  final String content;
+  final VoidCallback? onCommentPressed;
+
+  final ValueNotifier<int> likeCount = ValueNotifier<int>(0);
+
+  onPostWidget({
+    super.key,
+    required this.imagePath,
+    required this.nickname,
+    required this.location,
+    required this.date,
+    required this.content,
+    this.onCommentPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double width = screenSize.width;
+    double height = screenSize.height;
+
+    return Scaffold(
+        body: Container(
+      width: width * 0.9,
+      height: height * 0.4,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black,
+          width: 0.5,
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(20),
+              topLeft: Radius.circular(20),
+            ),
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              width: width * 0.9,
+              height: height * 0.3,
+            ),
+          ),
+          SizedBox(
+            height: height * 0.01,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: width * 0.02,
+                  ),
+                  Text(
+                    nickname,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Text(
+                    location,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    date,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                  ),
+                  color: Colors.black,
+                ),
+                child: Row(
+                  children: [
+                    TextButton(
+                      onPressed: onCommentPressed,
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.only(left: 3),
+                      ),
+                      child: Icon(
+                        CupertinoIcons.chat_bubble,
+                        color: Colors.white,
+                        size: width * 0.062,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        likeCount.value++;
+                      },
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.only(left: 5),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            CupertinoIcons.heart,
+                            color: Colors.white,
+                            size: width * 0.062,
+                          ),
+                          ValueListenableBuilder<int>(
+                            valueListenable: likeCount,
+                            builder: (context, value, child) {
+                              return Text(
+                                '$value', // 좋아요 수
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: height * 0.01,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: width * 0.02,
+              ),
+              SizedBox(
+                width: width * 0.85,
+                child: Text(
+                  content, // 전달된 텍스트 표시
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  overflow: TextOverflow.ellipsis, // 텍스트가 길 경우 '...'으로 표시
+                  maxLines: 1,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ));
+  }
+}

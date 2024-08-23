@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:time_capsule/controller/PostController.dart';
 import 'package:time_capsule/screen/CommentScreen.dart';
-import 'package:time_capsule/widget/%08WidgetTools.dart';
+import 'package:time_capsule/widget/WidgetTools.dart';
 
 class AddPostPage extends StatelessWidget {
   AddPostPage({super.key});
@@ -220,7 +220,7 @@ class AddPostPage extends StatelessWidget {
                             String date = DateTime.now()
                                 .toString()
                                 .split(' ')[0]; // 당일 날짜
-                            postWidget newPost = postWidget(
+                            onPostWidget newPost = onPostWidget(
                               imagePath:
                                   '/Users/zzuntekk/time_Capsule-main/images/foot.png',
                               nickname: 'insu_1004',
@@ -233,7 +233,7 @@ class AddPostPage extends StatelessWidget {
                             );
 
                             // 여기에 원하는 대로 newPost를 처리하거나 사용하세요.
-                            /*Get.to(() => newPost);*/ // 예시로 Get.to로 해당 위젯을 보여줌
+                            Get.to(() => newPost); // 예시로 Get.to로 해당 위젯을 보여줌
                           },
                           /* postController.sendData();
                             Get.back();*/

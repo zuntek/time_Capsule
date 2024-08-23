@@ -15,7 +15,7 @@ import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/screen/CommentScreen.dart';
 import 'package:time_capsule/screen/MakePartyPage.dart';
 import 'package:time_capsule/screen/OnPost.dart';
-import 'package:time_capsule/widget/%08WidgetTools.dart';
+import 'package:time_capsule/widget/WidgetTools.dart';
 import 'package:time_capsule/widget/Expandable_fab.dart';
 import 'package:time_capsule/widget/SearchBar.dart';
 import 'package:time_capsule/widget/dropDownWidget.dart';
@@ -104,24 +104,6 @@ class HomeScreen extends StatelessWidget {
               //   ),
               // ),
               actions: [
-                IconButton(
-                  onPressed: () {
-                    Get.to(GetSearchBar(
-                      isSearchExpanded: false,
-                      onSearchIconPressed: () {
-                        // 검색 아이콘 클릭 시 실행될 동작
-                      },
-                      onSearchFieldTapped: () {
-                        Text1();
-                      },
-                    ));
-                  },
-                  icon: Icon(
-                    Icons.search,
-                    size: width * 0.083,
-                    color: Colors.black,
-                  ),
-                ),
                 const Padding(padding: EdgeInsets.only(right: 8)),
 
                 PopupMenuButton(
@@ -133,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                   offset: Offset(width, height * 0.055),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  color: Colors.black,
+                  color: Colors.white,
                   elevation: 50,
                   itemBuilder: (context) {
                     return [

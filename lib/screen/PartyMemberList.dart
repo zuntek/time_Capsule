@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/PostController.dart';
-import 'package:time_capsule/widget/%08WidgetTools.dart';
+import 'package:time_capsule/widget/WidgetTools.dart';
 
 class PartyMemberList extends StatelessWidget {
   PartyMemberList({super.key});

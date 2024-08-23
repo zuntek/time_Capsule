@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/controller/PostController.dart';
-import 'package:time_capsule/widget/%08WidgetTools.dart';
+import 'package:time_capsule/widget/WidgetTools.dart';
 
 class CommentScreen extends StatelessWidget {
   CommentScreen({super.key});

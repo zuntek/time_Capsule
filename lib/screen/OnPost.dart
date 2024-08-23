@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:time_capsule/controller/PhotoController.dart';
 import 'package:time_capsule/controller/PostController.dart';
-import 'package:time_capsule/main.dart';
-import 'package:time_capsule/widget/%08WidgetTools.dart';
+import 'package:time_capsule/widget/WidgetTools.dart';
 
 class OnPost extends StatelessWidget {
   OnPost({super.key});
@@ -23,6 +22,7 @@ class OnPost extends StatelessWidget {
   final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
   final int _widgetCount = 3;
   final PageController _pageController = PageController();
+  final ValueNotifier<int> likeCount = ValueNotifier<int>(0);
   // cid, pid 받아서 작동하는 부분 작성
   AutoScrollWidget() {
     Timer.periodic(const Duration(seconds: 3), (timer) {
@@ -191,7 +191,9 @@ class OnPost extends StatelessWidget {
                     child: Row(
                       children: [
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            likeCount.value++;
+                          },
                           style: TextButton.styleFrom(
                             padding: const EdgeInsets.only(left: 5),
                           ),
@@ -199,15 +201,20 @@ class OnPost extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
-                                color: Colors.white,
                                 CupertinoIcons.heart,
+                                color: Colors.white,
                                 size: width * 0.062,
                               ),
-                              const Text(
-                                '13',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
+                              ValueListenableBuilder<int>(
+                                valueListenable: likeCount,
+                                builder: (context, value, child) {
+                                  return Text(
+                                    '$value', // 좋아요 수
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -232,7 +239,7 @@ class OnPost extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              /* Container(
                 width: width * 1,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -268,7 +275,7 @@ class OnPost extends StatelessWidget {
                     commentText: '니 한골도 못넣었잖아;;',
                   ),
                 ]),
-              ),
+              ),*/
             ],
           ),
         ),

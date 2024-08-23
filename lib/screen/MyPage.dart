@@ -51,8 +51,6 @@ class MyPage extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
-    var textWidth = width * 0.05;
-    bool isListExpanded = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -116,7 +114,9 @@ class MyPage extends StatelessWidget {
                             ),
                             actions: [
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(const LoginPage());
+                                },
                                 child: const Text('로그아웃'),
                               ),
                               TextButton(
@@ -445,20 +445,17 @@ class MyPage extends StatelessWidget {
                         SizedBox(
                           height: height * 0.01,
                         ),
-                        ValueListenableBuilder<bool>(
-                          valueListenable: showFirstScreen,
-                          builder: (context, value, child) {
-                            // 삼항 연산자를 사용해서 선택적으로 화면 표시
-                            return value ? const FirstScreen() : Sildes();
-                          },
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
                       ],
                     ),
                   ),
                 ),
+              ),
+              ValueListenableBuilder<bool>(
+                valueListenable: showFirstScreen,
+                builder: (context, value, child) {
+                  // 삼항 연산자를 사용해서 선택적으로 화면 표시
+                  return value ? const FirstScreen() : Sildes();
+                },
               ),
             ],
           ),
@@ -519,7 +516,106 @@ class FirstScreen extends StatelessWidget {
     double width = screenSize.width;
     double height = screenSize.height;
 
-    return const SizedBox();
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          return Container(
+            margin: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                width: 0.3,
+                color: const Color.fromARGB(255, 0, 0, 0),
+              ),
+              borderRadius: const BorderRadius.horizontal(
+                left: Radius.circular(20),
+                right: Radius.circular(20),
+              ),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.grey,
+                  spreadRadius: 0,
+                  blurRadius: 5.0,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.04,
+                    vertical: height * 0.015,
+                  ),
+                  child: SizedBox(
+                    width: width * 0.8,
+                    height: height * 0.1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          width: 0.0,
+                          color: Colors.white,
+                        ),
+                        borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(20),
+                          right: Radius.circular(20),
+                        ),
+                        image: const DecorationImage(
+                          image: AssetImage("images/background.png"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.005,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.02,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '2024.4.10/서울시 강서구',
+                        style: TextStyle(
+                          fontSize: width * 0.02,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(
+                            CupertinoIcons.heart,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            CupertinoIcons.chat_bubble,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+        childCount: 3,
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 3,
+        mainAxisSpacing: 5,
+        mainAxisExtent: 200,
+      ),
+    );
   }
 }
 
@@ -541,244 +637,265 @@ class Sildes extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
-    return Padding(
+    return SliverPadding(
         padding: const EdgeInsets.symmetric(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      // 아래쪽 테두리
-                      color: Colors.grey, // 테두리 색상
-                      width: 1.0, // 테두리 두께
-                    ),
-                  ),
-                ),
-                child: Column(children: [
-                  SizedBox(
-                    height: height * 0.01,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: height * 0.35,
-                              width:
-                                  width * 0.9, // PageView의 높이를 화면 높이의 30%로 설정
-                              child: StreamBuilder<int>(
-                                stream: _autoScrollStream,
-                                builder: (context, snapshot) {
-                                  return PageView(
-                                    controller: _pageController,
-                                    children: <Widget>[
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            width: width * 0.9,
-                                            height: height * 0.35,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      20), // 원하는 둥글기 정도로 설정
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      20), // 같은 둥글기 정도로 설정
-                                              child: Image.asset(
-                                                '/Users/zzuntekk/time_Capsule-main/images/bridge.jpeg',
-                                                fit: BoxFit.cover,
-                                                width: width * 0.9,
-                                                height: height * 0.3,
-                                              ),
-                                            ),
-                                          ),
-                                          Positioned(
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Stack(
-                                                        children: <Widget>[
-                                                          // Outline text
-                                                          Text(
-                                                            '한강다리 내다리',
-                                                            style: TextStyle(
-                                                              fontSize: 30,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              foreground:
-                                                                  Paint()
-                                                                    ..style =
-                                                                        PaintingStyle
-                                                                            .stroke
-                                                                    ..strokeWidth =
-                                                                        1
-                                                                    ..color =
-                                                                        Colors
-                                                                            .black,
-                                                            ),
-                                                          ),
-                                                          // Solid text
-                                                          const Text(
-                                                            '한강다리 내다리',
-                                                            style: TextStyle(
-                                                              fontSize: 30,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      const Text(
-                                                        '양화대교',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 20,
-                                                        ),
-                                                      ),
-                                                      const Text(
-                                                        '2024년 6월 5일의 추억',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 20,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: height * 0.18,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    Container(
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                        ), // 원하는 둥글기 정도로 설정
-
-                                                        color: Colors.white,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            spreadRadius: 2,
-                                                            blurRadius: 5,
-                                                            offset:
-                                                                Offset(3, 0),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      child: Row(
-                                                        children: [
-                                                          TextButton(
-                                                            onPressed: () {},
-                                                            style: TextButton
-                                                                .styleFrom(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      left: 3),
-                                                            ),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              children: [
-                                                                Icon(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  CupertinoIcons
-                                                                      .chat_bubble,
-                                                                  size: width *
-                                                                      0.062,
-                                                                ),
-                                                                const Text(
-                                                                  '13',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          TextButton(
-                                                            onPressed: () {},
-                                                            style: TextButton
-                                                                .styleFrom(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      left: 5),
-                                                            ),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              children: [
-                                                                Icon(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  CupertinoIcons
-                                                                      .heart,
-                                                                  size: width *
-                                                                      0.062,
-                                                                ),
-                                                                const Text(
-                                                                  '13',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
+        sliver: SliverToBoxAdapter(
+            child: Padding(
+                padding: const EdgeInsets.symmetric(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              // 아래쪽 테두리
+                              color: Colors.grey, // 테두리 색상
+                              width: 1.0, // 테두리 두께
+                            ),
+                          ),
+                        ),
+                        child: Column(children: [
+                          SizedBox(
+                            height: height * 0.01,
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.35,
+                                      width: width *
+                                          0.9, // PageView의 높이를 화면 높이의 30%로 설정
+                                      child: StreamBuilder<int>(
+                                        stream: _autoScrollStream,
+                                        builder: (context, snapshot) {
+                                          return PageView(
+                                            controller: _pageController,
+                                            children: <Widget>[
+                                              Stack(
+                                                children: [
+                                                  Container(
+                                                    width: width * 0.9,
+                                                    height: height * 0.35,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20), // 원하는 둥글기 정도로 설정
+                                                    ),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20), // 같은 둥글기 정도로 설정
+                                                      child: Image.asset(
+                                                        '/Users/zzuntekk/time_Capsule-main/images/bridge.jpeg',
+                                                        fit: BoxFit.cover,
+                                                        width: width * 0.9,
+                                                        height: height * 0.3,
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                                  ),
+                                                  Positioned(
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Stack(
+                                                                children: <Widget>[
+                                                                  // Outline text
+                                                                  Text(
+                                                                    '한강다리 내다리',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          30,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      foreground:
+                                                                          Paint()
+                                                                            ..style =
+                                                                                PaintingStyle.stroke
+                                                                            ..strokeWidth =
+                                                                                1
+                                                                            ..color =
+                                                                                Colors.black,
+                                                                    ),
+                                                                  ),
+                                                                  // Solid text
+                                                                  const Text(
+                                                                    '한강다리 내다리',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          30,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              const Text(
+                                                                '양화대교',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 20,
+                                                                ),
+                                                              ),
+                                                              const Text(
+                                                                '2024년 6월 5일의 추억',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 20,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: height * 0.18,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Container(
+                                                              decoration:
+                                                                  const BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          20),
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          20),
+                                                                ), // 원하는 둥글기 정도로 설정
+
+                                                                color: Colors
+                                                                    .white,
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    spreadRadius:
+                                                                        2,
+                                                                    blurRadius:
+                                                                        5,
+                                                                    offset:
+                                                                        Offset(
+                                                                            3,
+                                                                            0),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child: Row(
+                                                                children: [
+                                                                  TextButton(
+                                                                    onPressed:
+                                                                        () {},
+                                                                    style: TextButton
+                                                                        .styleFrom(
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          left:
+                                                                              3),
+                                                                    ),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .min,
+                                                                      children: [
+                                                                        Icon(
+                                                                          color:
+                                                                              Colors.black,
+                                                                          CupertinoIcons
+                                                                              .chat_bubble,
+                                                                          size: width *
+                                                                              0.062,
+                                                                        ),
+                                                                        const Text(
+                                                                          '13',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  TextButton(
+                                                                    onPressed:
+                                                                        () {},
+                                                                    style: TextButton
+                                                                        .styleFrom(
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          left:
+                                                                              5),
+                                                                    ),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .min,
+                                                                      children: [
+                                                                        Icon(
+                                                                          color:
+                                                                              Colors.black,
+                                                                          CupertinoIcons
+                                                                              .heart,
+                                                                          size: width *
+                                                                              0.062,
+                                                                        ),
+                                                                        const Text(
+                                                                          '13',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                          ]),
-                    ],
-                  ),
-                ])),
-          ],
-        ));
+                                    ),
+                                  ]),
+                            ],
+                          ),
+                        ])),
+                  ],
+                ))));
   }
 }
